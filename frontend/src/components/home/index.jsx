@@ -1,49 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../navbar'; 
-import EventList from '../eventlist'; 
-import { getEvents } from '../../firebase/events'; 
-import { useAuth } from '../../contexts/authContext';
-import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
+import React, { useState, useEffect } from "react";
+import Navbar from "../navbar";
+import EventList from "../eventlist";
+import { getEvents } from "../../firebase/events";
+import "./HomePage.css";
 
 const HomePage = () => {
-    const [events, setEvents] = useState([]);
-    const { currentUser, logout } = useAuth();
-    const navigate = useNavigate();
+  const [events, setEvents] = useState([]);
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const eventData = await getEvents();
-                setEvents(eventData);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            }
-        };
-        fetchEvents();
-    }, []);
-
-    const handleLogout = async () => {
-        try {
-            await logout();
-            navigate('/login');
-        } catch (error) {
-            console.error("Failed to logout", error);
-        }
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const eventData = await getEvents();
+        setEvents(eventData);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
     };
+    fetchEvents();
+  }, []);
 
-    return (
-        <div>
-            <Navbar />
-            <main className="home-main">
-                <div className='text-2xl font-bold pt-14'>
-                    Hello {currentUser.displayName ? currentUser.displayName : currentUser.email}, you are now logged in.
-                    <button onClick={handleLogout} className='ml-4 p-2 bg-red-500 text-white rounded'>Logout</button>
-                </div>
-                <EventList events={events} />
-            </main>
-        </div>
-    );
+  return (
+    <div>
+      <Navbar />
+      <main className="home-main">
+        <EventList events={events} />
+      </main>
+    </div>
+  );
 };
 
 export default HomePage;

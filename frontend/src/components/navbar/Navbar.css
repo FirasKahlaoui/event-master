@@ -1,78 +1,169 @@
-/* Navbar.css */
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+/* Navbar Container */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #1a1a2e; /* Dark blue background */
+  color: #ffffff; /* White text */
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.navbar-brand {
-    display: flex;
-    align-items: center;
+/* Navbar Brand (Logo) */
+.navbar-brand .brand-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.navbar-brand img {
-    width: 40px;
-    height: 40px;
-    margin-right: 8px;
+.navbar-brand .brand-logo:hover {
+  color: #e94560; /* Soft red on hover */
+}
+
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
 }
 
 .navbar-links a {
-    margin: 0 15px;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px;
+  transition: color 0.3s ease;
 }
 
-.navbar-links a.active-link {
-    border-bottom: 2px solid #ff6347;
+.navbar-links a:hover,
+.navbar-links .active-link {
+  color: #e94560;
 }
 
 .navbar-profile {
-    position: relative;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .profile-dropdown {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .profile-avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 45px;
-    background-color: white;
-    color: black;
-    min-width: 160px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    z-index: 1;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: #ffffff;
+  color: #333333;
+  width: 150px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10;
 }
 
-.dropdown-content a, .dropdown-content button {
-    display: block;
-    padding: 8px 12px;
-    color: black;
-    text-decoration: none;
-    font-size: 14px;
+.dropdown-content span {
+  font-size: 0.9rem;
+  color: #666666;
 }
 
-.dropdown-content a:hover, .dropdown-content button:hover {
-    background-color: #f1f1f1;
+.dropdown-content a,
+.dropdown-content button {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #1a1a2e;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.profile-dropdown:hover .dropdown-content {
-    display: block;
+.dropdown-content a:hover,
+.dropdown-content button:hover {
+  color: #e94560;
+}
+
+.dropdown-content button {
+  padding: 8px 0;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links a, .login-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 17px;
+  border-radius: 4px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links a:hover,
+.login-link:hover {
+  color: #ffffff;
+  background-color: #e94560;
+}
+
+.navbar-links .active-link {
+  color: #e94560;
+}
+
+.login-link {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  text-align: center;
+  margin-top: -3px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    margin-top: 10px;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navbar-profile {
+    margin-top: 10px;
+  }
 }
