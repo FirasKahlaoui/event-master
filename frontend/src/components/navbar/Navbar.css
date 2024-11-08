@@ -1,0 +1,78 @@
+/* Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+
+.navbar-links a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.navbar-links a.active-link {
+    border-bottom: 2px solid #ff6347;
+}
+
+.navbar-profile {
+    position: relative;
+}
+
+.profile-dropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background-color: white;
+    color: black;
+    min-width: 160px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1;
+}
+
+.dropdown-content a, .dropdown-content button {
+    display: block;
+    padding: 8px 12px;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover, .dropdown-content button:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-dropdown:hover .dropdown-content {
+    display: block;
+}
