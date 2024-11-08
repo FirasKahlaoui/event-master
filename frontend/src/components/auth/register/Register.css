@@ -15,7 +15,7 @@
   display: flex;
   width: 32rem;
   padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.85); /* White with 85% opacity */
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 0.75rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
