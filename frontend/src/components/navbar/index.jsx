@@ -9,7 +9,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
 
   const handleDropdownToggle = () => {
-    setDropdownVisible(!dropdownVisible);
+    setDropdownVisible((prev) => !prev);
   };
 
   const handleClickOutside = (event) => {
@@ -45,12 +45,7 @@ const Navbar = () => {
       </nav>
       <div className="navbar-profile">
         {currentUser ? (
-          <div
-            className="profile-dropdown"
-            ref={dropdownRef}
-            onMouseEnter={() => setDropdownVisible(true)}
-            onMouseLeave={() => setDropdownVisible(false)}
-          >
+          <div className="profile-dropdown" ref={dropdownRef}>
             <img
               src={currentUser.photoURL || "/assets/default-avatar.png"}
               alt="User Avatar"
