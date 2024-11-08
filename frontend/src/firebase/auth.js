@@ -8,6 +8,7 @@ import {
   updatePassword,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
 } from "firebase/auth";
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
@@ -43,3 +44,9 @@ export const doSendEmailVerification = () => {
     url: `${window.location.origin}/home`,
   });
 };
+
+export const updateUserProfile = (user, profile) => {
+  return updateProfile(user, profile);
+};
+
+
