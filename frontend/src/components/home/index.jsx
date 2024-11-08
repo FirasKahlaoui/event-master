@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../navbar';
+import Navbar from '../navbar'; 
 import EventList from '../eventlist'; 
-import { getEvents } from '../../../firebase/events'; 
+import { getEvents } from '../../firebase/events'; 
 import { useAuth } from '../../contexts/authContext';
 import { useNavigate } from 'react-router-dom';
+import './HomePage.css';
 
 const HomePage = () => {
     const [events, setEvents] = useState([]);
