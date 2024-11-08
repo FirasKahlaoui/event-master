@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './Navbar';
-import EventList from './EventList'; 
+import Navbar from '../navbar';
+import EventList from '../eventlist'; 
 import { getEvents } from '../../../firebase/events'; 
 import { useAuth } from '../../contexts/authContext';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,6 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch events when the component is mounted
         const fetchEvents = async () => {
             try {
                 const eventData = await getEvents();
