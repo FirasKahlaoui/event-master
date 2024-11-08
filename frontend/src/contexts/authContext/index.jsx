@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../firebase/firebase";
-import { GoogleAuthProvider } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
+import { GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = React.createContext();
 
@@ -23,7 +22,6 @@ export function AuthProvider({ children }) {
 
   async function initializeUser(user) {
     if (user) {
-
       setCurrentUser({ ...user });
 
       // check if provider is email and password login
@@ -33,10 +31,10 @@ export function AuthProvider({ children }) {
       setIsEmailUser(isEmail);
 
       // check if the auth provider is google or not
-        const isGoogle = user.providerData.some(
-         (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
+      const isGoogle = user.providerData.some(
+        (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
       );
-        setIsGoogleUser(isGoogle);
+      setIsGoogleUser(isGoogle);
 
       setUserLoggedIn(true);
     } else {
@@ -47,12 +45,21 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }
 
+  const logout = async () => {
+    await signOut(auth);
+    setCurrentUser(null);
+    setUserLoggedIn(false);
+    setIsEmailUser(false);
+    setIsGoogleUser(false);
+  };
+
   const value = {
     userLoggedIn,
     isEmailUser,
     isGoogleUser,
     currentUser,
-    setCurrentUser
+    setCurrentUser,
+    logout
   };
 
   return (
