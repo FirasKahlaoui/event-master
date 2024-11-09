@@ -9,13 +9,12 @@ const App = () => {
   return (
     <AuthProvider>
       {" "}
-      {/* Wrap your app with AuthProvider */}
       <Router>
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Home />} /> {/* Default route */}
+          <Route path="/" element={<Home />} />
         </Routes>
       </Router>
     </AuthProvider>
