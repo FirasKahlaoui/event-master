@@ -1,0 +1,47 @@
+.home-main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.welcome-section h1 {
+  font-size: 2em;
+  color: #333;
+}
+
+.welcome-section p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.explore-more {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.explore-more p {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.login-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #5c67f2;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.login-link:hover {
+  background-color: #4a53c8;
+}
