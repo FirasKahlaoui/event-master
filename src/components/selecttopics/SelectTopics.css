@@ -1,0 +1,57 @@
+.select-topics-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.select-topics-page h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.topics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topic-item {
+  padding: 10px 20px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.topic-item.selected {
+  background-color: #4285f4;
+  color: white;
+}
+
+.show-more-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.show-more-button:hover {
+  background-color: #d0d0d0;
+}
+
+.submit-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: #3367d6;
+}
