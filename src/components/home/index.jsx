@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import "./HomePage.css";
 
 const HomePage = () => {
-  const { userLoggedIn } = useAuth(); // Access the user login status
+  const { userLoggedIn } = useAuth();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const HomePage = () => {
     fetchEvents();
   }, []);
 
-  const displayedEvents = userLoggedIn ? events : events.slice(0, 2); // Show 2 events if not logged in
+  const displayedEvents = userLoggedIn ? events : events.slice(0, 2);
 
   return (
     <div>
@@ -31,12 +31,17 @@ const HomePage = () => {
         <div className="left-section">
           <h1>Welcome to EventMaster</h1>
           <p>
-            Discover upcoming events and activities.
-            {userLoggedIn ? "" : " Log in to explore more!"}
+            EventMaster brings all the best events directly to you. Discover
+            upcoming gatherings, activities, and experiences tailored just for
+            you! Dive in to explore detailed event information, personalized
+            recommendations, and exciting possibilities.{" "}
+            {userLoggedIn
+              ? ""
+              : "Please log in to access more events and features!"}
           </p>
           {!userLoggedIn && (
             <Link to="/login" className="login-link">
-              Log in to explore more
+              Log in to explore more events
             </Link>
           )}
         </div>
