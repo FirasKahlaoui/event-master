@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { storage, db } from "../../firebase/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { uploadImage } from "../utils/cloudinaryHelper";
 
 const CreateEvent = () => {
   const [title, setTitle] = useState("");
@@ -22,18 +22,16 @@ const CreateEvent = () => {
     }
 
     try {
-      // Upload image to Firebase Storage
-      const imageRef = ref(storage, `images/${imageFile.name}`);
-      await uploadBytes(imageRef, imageFile);
-      const imageUrl = await getDownloadURL(imageRef);
+      // Upload image to Cloudinary
+      const uploadedImage = await uploadImage(imageFile); // This returns the image URL from Cloudinary
 
-      // Save event details to Firestore with the image URL
+      // Save event details to Firestore with the image URL from Cloudinary
       const newEvent = {
         title,
         description,
         date,
         location,
-        image: imageUrl,
+        image: uploadedImage, // The Cloudinary URL of the image
       };
       await addDoc(collection(db, "events"), newEvent);
 
