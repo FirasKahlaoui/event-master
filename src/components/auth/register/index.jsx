@@ -18,6 +18,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +50,10 @@ const Register = () => {
         setIsRegistering(false);
       }
     }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
@@ -83,20 +88,30 @@ const Register = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Password</label>
+              <label>Password</label>
+              <div className="form-group password-group">
+                
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isRegistering}
                 />
+                <button
+                  type="button"
+                  onClick={toggleShowPassword}
+                  className="show-password-button"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
               </div>
               <div className="form-group">
                 <label>Confirm Password</label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="off"
                   required
                   value={confirmPassword}
