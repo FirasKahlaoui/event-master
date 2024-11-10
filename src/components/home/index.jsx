@@ -22,7 +22,8 @@ const HomePage = () => {
     fetchEvents();
   }, []);
 
-  const displayedEvents = userLoggedIn ? events : events.slice(0, 2);
+  // Always display only the first 2 events
+  const displayedEvents = events.slice(0, 2);
 
   return (
     <div>

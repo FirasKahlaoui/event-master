@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */ 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
@@ -30,7 +30,7 @@ const EventList = ({ events }) => {
               />
               <div className="event-details">
                 <h3>{event.name}</h3>
-                <p>{event.description}</p>
+                <p>{event.shortDescription}</p>
                 <p className="event-date">
                   {new Date(event.date).toLocaleDateString()}
                 </p>
