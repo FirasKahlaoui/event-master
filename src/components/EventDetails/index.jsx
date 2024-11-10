@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import "./EventDetails.css";
 
@@ -24,9 +24,8 @@ const EventDetails = () => {
   const handleJoinEvent = async () => {
     setIsJoining(true);
     try {
-      await updateDoc(doc(db, "users", currentUser.uid), {
-        joinedEvents: arrayUnion(id),
-      });
+      const userRef = doc(db, "users", currentUser.uid);
+      await setDoc(userRef, { joinedEvents: arrayUnion(id) }, { merge: true });
       alert("You have successfully joined the event!");
     } catch (error) {
       console.error("Error joining event:", error);
