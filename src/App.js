@@ -4,7 +4,8 @@ import { AuthProvider } from "./contexts/authContext";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import Home from "./components/home";
-import EventDetails from "./components/EventDetails";
+import EventDetails from "./components/eventdetails";
+import CreateEvent from "./components/createevent";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/event/:id" element={<EventDetails />} />
+          <Route path="/create-event" element={<CreateEvent />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
