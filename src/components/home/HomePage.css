@@ -1,38 +1,31 @@
 .home-main {
-  padding: 20px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  padding: 20px;
+  min-height: calc(100vh - 60px); /* Adjust based on navbar height */
 }
 
-.welcome-section {
-  text-align: center;
+.left-section {
+  flex: 1;
+  max-width: 50%;
+  text-align: left;
+  padding-right: 20px;
+}
+
+.left-section h1 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.left-section p {
+  font-size: 1.2em;
+  color: #666;
   margin-bottom: 20px;
 }
 
-.welcome-section h1 {
-  font-size: 2em;
-  color: #333;
-}
-
-.welcome-section p {
-  font-size: 1.2em;
-  color: #666;
-}
-
-.explore-more {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.explore-more p {
-  font-size: 1.1em;
-  color: #333;
-}
-
 .login-link {
-  display: inline-block;
-  margin-top: 10px;
   padding: 10px 15px;
   background-color: #5c67f2;
   color: white;
@@ -44,4 +37,30 @@
 
 .login-link:hover {
   background-color: #4a53c8;
+}
+
+.right-section {
+  flex: 1;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-section .event-card {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white;
+  color: #333;
+}
+
+.right-section .event-card h3 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+.right-section .event-card p {
+  font-size: 1em;
+  color: #666;
 }

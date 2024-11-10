@@ -22,28 +22,27 @@ const HomePage = () => {
     fetchEvents();
   }, []);
 
-  const displayedEvents = userLoggedIn ? events : events.slice(0, 3); // Show 3 events if not logged in
+  const displayedEvents = userLoggedIn ? events : events.slice(0, 2); // Show 2 events if not logged in
 
   return (
     <div>
       <Navbar />
       <main className="home-main">
-        <div className="welcome-section">
+        <div className="left-section">
           <h1>Welcome to EventMaster</h1>
           <p>
             Discover upcoming events and activities.
             {userLoggedIn ? "" : " Log in to explore more!"}
           </p>
-        </div>
-        <EventList events={displayedEvents} />
-        {!userLoggedIn && (
-          <div className="explore-more">
-            <p>Want to see more events?</p>
+          {!userLoggedIn && (
             <Link to="/login" className="login-link">
               Log in to explore more
             </Link>
-          </div>
-        )}
+          )}
+        </div>
+        <div className="right-section">
+          <EventList events={displayedEvents} />
+        </div>
       </main>
     </div>
   );
