@@ -1,8 +1,7 @@
-// src/components/selecttopics/index.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import "./SelectTopics.css";
 
@@ -80,7 +79,7 @@ const SelectTopics = () => {
     e.preventDefault();
     try {
       const userRef = doc(db, "users", currentUser.uid);
-      await updateDoc(userRef, { topics: selectedTopics });
+      await setDoc(userRef, { topics: selectedTopics }, { merge: true });
       navigate("/home");
     } catch (error) {
       console.error("Error saving topics:", error);
