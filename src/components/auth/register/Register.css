@@ -2,73 +2,81 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
-  background-color: #e5e7eb;
+  background-color: #faf4d3;
 }
+
 .register-container {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../../../assets/images/dj-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #0c1618;
 }
+
 .register-box {
   display: flex;
   width: 42rem;
   padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(250, 244, 211, 0.95);
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
 .register-left {
   width: 60%;
   padding-right: 1rem;
-  border-right: 1px solid rgba(226, 232, 240, 0.5);
+  border-right: 1px solid rgba(0, 70, 67, 0.5);
 }
+
 .register-header h3 {
-  color: #111827;
+  color: #d1ac00;
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
 }
+
 .register-form {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
+
 .form-group {
   position: relative;
 }
+
 .form-group label {
   font-size: 0.875rem;
-  color: #374151;
+  color: #004643;
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
+
 .form-group input {
   width: 100%;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
-  color: #1f2937;
-  background-color: #f9fafb;
-  border: 1px solid #d1d5db;
+  color: #0c1618;
+  background-color: #f6be9a;
+  border: 1px solid #004643;
   border-radius: 0.5rem;
   outline: none;
   transition: border-color 0.2s, background-color 0.2s;
 }
+
 .form-group input:focus {
-  border-color: #3b82f6;
+  border-color: #d1ac00;
   background-color: #ffffff;
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 8px rgba(209, 172, 0, 0.3);
 }
+
 .password-group {
   display: flex;
   align-items: center;
 }
+
 .show-password-button {
   position: absolute;
   right: 25px;
@@ -76,31 +84,35 @@ body {
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #3b82f6;
+  color: #d1ac00;
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 600;
 }
+
 .show-password-button:hover {
-  color: #2563eb;
+  color: #0c1618;
 }
+
 .submit-button {
   width: 100%;
   padding: 0.6rem;
   font-size: 1rem;
   font-weight: 700;
-  color: #ffffff;
-  background-color: #3b82f6;
+  color: #faf4d3;
+  background-color: #004643;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   margin-top: 0.75rem;
 }
+
 .submit-button:hover {
-  background-color: #2563eb;
+  background-color: #0c1618;
   transform: translateY(-2px);
 }
+
 .register-right {
   width: 40%;
   padding-left: 1rem;
@@ -109,57 +121,66 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .divider {
   display: flex;
   align-items: center;
   width: 100%;
   margin: 1rem 0;
 }
+
 .divider .line {
   flex: 1;
   height: 1px;
-  background-color: #e5e7eb;
+  background-color: #004643;
 }
+
 .divider .or {
   margin: 0 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #6b7280;
+  color: #004643;
 }
+
 .google-button {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.6rem;
-  background-color: #ffffff;
-  color: #fff;
+  background-color: #faf4d3;
+  color: #004643;
   font-size: 0.875rem;
   font-weight: 600;
-  border: 1px solid #d1d5db;
+  border: 1px solid #004643;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.2s;
   margin-bottom: 50px;
 }
+
 .google-button:hover {
-  background-color: #f3f4f6;
+  background-color: #f6be9a;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .google-icon {
   width: 1.25rem;
   height: 1.25rem;
   margin-right: 0.5rem;
 }
+
 .login-link {
   font-size: 0.875rem;
-  color: #fff;
+  color: #004643;
   text-align: center;
 }
+
 .login-link a {
-  color: #fff;
+  color: #d1ac00;
   text-decoration: none;
 }
+
 .login-link a:hover {
-  color: #3b82f6;
+  color: #0c1618;
 }
