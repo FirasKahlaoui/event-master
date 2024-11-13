@@ -11,8 +11,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  background-color: #1a1a2e; /* Dark blue background */
-  color: #ffffff; /* White text */
+  background-color: #0c1618; /* Dark blue background */
+  color: #faf4d3; /* Light cream text */
   font-family: Arial, sans-serif;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -21,15 +21,14 @@
 .navbar-brand .brand-logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffffff;
+  color: #faf4d3;
   text-decoration: none;
   cursor: pointer;
 }
 
 .navbar-brand .brand-logo:hover {
-  color: #e94560; /* Soft red on hover */
+  color: #d1ac00; /* Gold on hover */
 }
-
 
 .navbar-links {
   display: flex;
@@ -37,7 +36,7 @@
 }
 
 .navbar-links a {
-  color: #ffffff;
+  color: #faf4d3;
   text-decoration: none;
   font-weight: 500;
   padding: 8px;
@@ -46,7 +45,7 @@
 
 .navbar-links a:hover,
 .navbar-links .active-link {
-  color: #e94560;
+  color: #d1ac00; /* Gold on hover */
 }
 
 .navbar-profile {
@@ -79,7 +78,7 @@
   top: 60px;
   right: 0;
   background-color: #ffffff;
-  color: #333333;
+  color: #0c1618;
   width: 150px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -92,14 +91,14 @@
 
 .dropdown-content span {
   font-size: 0.9rem;
-  color: #666666;
+  color: #6b7280; /* Gray text */
 }
 
 .dropdown-content a,
 .dropdown-content button {
   text-decoration: none;
   font-size: 0.9rem;
-  color: #1a1a2e;
+  color: #0c1618;
   border: none;
   background: none;
   cursor: pointer;
@@ -108,7 +107,7 @@
 
 .dropdown-content a:hover,
 .dropdown-content button:hover {
-  color: #e94560;
+  color: #d1ac00; /* Gold on hover */
 }
 
 .dropdown-content button {
@@ -122,8 +121,9 @@
   gap: 20px;
 }
 
-.navbar-links a, .login-link {
-  color: #ffffff;
+.navbar-links a,
+.login-link {
+  color: #faf4d3;
   text-decoration: none;
   font-weight: 500;
   padding: 8px 17px;
@@ -135,17 +135,17 @@
 
 .navbar-links a:hover,
 .login-link:hover {
-  color: #ffffff;
-  background-color: #e94560;
+  color: #faf4d3;
+  background-color: #d1ac00; /* Gold on hover */
 }
 
 .navbar-links .active-link {
-  color: #e94560;
+  color: #d1ac00; /* Gold */
 }
 
 .login-link {
   background-color: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #faf4d3;
   text-align: center;
   margin-top: -3px;
 }
