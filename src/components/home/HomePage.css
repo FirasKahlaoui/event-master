@@ -4,10 +4,7 @@
   align-items: center;
   padding: 20px;
   min-height: calc(100vh - 60px);
-  background-image: url("../../assets/images/Home.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #faf4d3;
 }
 
 .left-section {
@@ -19,20 +16,20 @@
 
 .left-section h1 {
   font-size: 2.5em;
-  color: #fff;
+  color: #004643;
   margin-bottom: 10px;
 }
 
 .left-section p {
   font-size: 1.2em;
-  color: #fff;
+  color: #0c1618;
   margin-bottom: 20px;
 }
 
 .login-link {
   padding: 10px 15px;
-  background-color: #5c67f2;
-  color: white;
+  background-color: #d1ac00;
+  color: #faf4d3;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
@@ -40,7 +37,7 @@
 }
 
 .login-link:hover {
-  background-color: #4a53c8;
+  background-color: #f6be9a;
 }
 
 .right-section {
@@ -55,13 +52,14 @@
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 8px;
-  background-color: white;
-  color: #333;
+  background-color: #faf4d3;
+  color: #0c1618;
 }
 
 .right-section .event-card h3 {
   font-size: 1.4em;
   margin-bottom: 10px;
+  color: #004643;
 }
 
 .right-section .event-card p {
