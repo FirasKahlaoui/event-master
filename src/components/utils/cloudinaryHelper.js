@@ -1,4 +1,3 @@
-// src/components/utils/cloudinaryHelper.js
 import dotenv from "dotenv";
 
 dotenv.config();

@@ -1,8 +1,8 @@
-// src/components/createevent/index.jsx
 import React, { useState } from "react";
 import { db } from "../../firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { uploadImage } from "../utils/cloudinaryHelper";
+import "./CreateEvent.css";
 
 const topicsList = [
   "Technology",
@@ -98,7 +98,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="create-event-form" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Title"

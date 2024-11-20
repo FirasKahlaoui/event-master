@@ -1,0 +1,59 @@
+.create-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: #faf4d3;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-event-form input,
+.create-event-form textarea {
+  padding: 10px;
+  border: 1px solid #004643;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #0c1618;
+  background-color: #f6be9a;
+}
+
+.create-event-form input:focus,
+.create-event-form textarea:focus {
+  border-color: #d1ac00;
+  background-color: #ffffff;
+}
+
+.create-event-form button {
+  padding: 10px 20px;
+  background-color: #004643;
+  color: #faf4d3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.create-event-form button:hover {
+  background-color: #0c1618;
+}
+
+.topics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topic-item {
+  padding: 10px 20px;
+  background-color: #f6be9a;
+  color: #0c1618;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.topic-item.selected {
+  background-color: #004643;
+  color: #faf4d3;
+}
