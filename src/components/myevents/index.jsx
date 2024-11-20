@@ -39,17 +39,19 @@ const MyEvents = () => {
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         if (userDoc.exists()) {
           const joinedEventIds = userDoc.data().joinedEvents || [];
-          const joinedEventsQuery = query(
-            collection(db, "events"),
-            where("id", "in", joinedEventIds)
-          );
-          const joinedEventsSnapshot = await getDocs(joinedEventsQuery);
-          setJoinedEvents(
-            joinedEventsSnapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-          );
+          if (joinedEventIds.length > 0) {
+            const joinedEventsQuery = query(
+              collection(db, "events"),
+              where("__name__", "in", joinedEventIds)
+            );
+            const joinedEventsSnapshot = await getDocs(joinedEventsQuery);
+            setJoinedEvents(
+              joinedEventsSnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+            );
+          }
         }
       } catch (error) {
         console.error("Error fetching events:", error);
