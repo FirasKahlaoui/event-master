@@ -13,7 +13,7 @@ const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_C
 export const uploadImage = async (imageFile) => {
   const formData = new FormData();
   formData.append("file", imageFile);
-  formData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
+  formData.append("upload_preset", "gcmq6aub"); // Use the provided upload preset name
 
   try {
     const response = await fetch(cloudinaryUrl, {
@@ -22,7 +22,8 @@ export const uploadImage = async (imageFile) => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to upload image");
+      const errorData = await response.json();
+      throw new Error(`Failed to upload image: ${errorData.error.message}`);
     }
 
     const data = await response.json();

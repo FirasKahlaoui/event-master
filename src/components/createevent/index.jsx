@@ -1,3 +1,4 @@
+// src/components/createevent/index.jsx
 import React, { useState } from "react";
 import { db } from "../../firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
