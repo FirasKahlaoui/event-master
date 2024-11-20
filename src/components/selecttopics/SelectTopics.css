@@ -1,12 +1,41 @@
-.select-topics-page {
+.create-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   padding: 20px;
   background-color: #faf4d3;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.select-topics-page h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #004643;
+.create-event-form input,
+.create-event-form textarea {
+  padding: 10px;
+  border: 1px solid #004643;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #0c1618;
+  background-color: #f6be9a;
+}
+
+.create-event-form input:focus,
+.create-event-form textarea:focus {
+  border-color: #d1ac00;
+  background-color: #ffffff;
+}
+
+.create-event-form button {
+  padding: 10px 20px;
+  background-color: #004643;
+  color: #faf4d3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.create-event-form button:hover {
+  background-color: #0c1618;
 }
 
 .topics-container {
@@ -27,34 +56,4 @@
 .topic-item.selected {
   background-color: #004643;
   color: #faf4d3;
-}
-
-.show-more-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #d1ac00;
-  color: #0c1618;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.show-more-button:hover {
-  background-color: #f6be9a;
-}
-
-.submit-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #004643;
-  color: #faf4d3;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.submit-button:hover {
-  background-color: #0c1618;
 }
