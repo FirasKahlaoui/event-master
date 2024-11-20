@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */ 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
@@ -24,12 +23,12 @@ const EventList = ({ events }) => {
           events.map((event) => (
             <div className="event-item" key={event.id}>
               <img
-                src={event.thumbnail || "/assets/default-event.jpg"}
-                alt={event.name}
+                src={event.image || "/assets/default-event.jpg"}
+                alt={event.title}
                 className="event-thumbnail"
               />
               <div className="event-details">
-                <h3>{event.name}</h3>
+                <h3>{event.title}</h3>
                 <p>{event.shortDescription}</p>
                 <p className="event-date">
                   {new Date(event.date).toLocaleDateString()}
