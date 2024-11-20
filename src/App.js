@@ -7,6 +7,7 @@ import Home from "./components/home";
 import EventDetails from "./components/eventdetails";
 import SelectTopics from "./components/selecttopics";
 import MyEvents from "./components/myevents";
+import CreateEvent from "./components/createevent"; 
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/select-topics" element={<SelectTopics />} />
           <Route path="/my-events" element={<MyEvents />} />
+          <Route path="/create-event" element={<CreateEvent />} /> 
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
