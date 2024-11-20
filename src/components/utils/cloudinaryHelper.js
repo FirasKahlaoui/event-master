@@ -13,7 +13,7 @@ const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_C
 export const uploadImage = async (imageFile) => {
   const formData = new FormData();
   formData.append("file", imageFile);
-  formData.append("upload_preset", "gcmq6aub"); // Use the provided upload preset name
+  formData.append("upload_preset", "gcmq6aub"); 
 
   try {
     const response = await fetch(cloudinaryUrl, {
