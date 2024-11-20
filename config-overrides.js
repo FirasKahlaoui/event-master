@@ -7,6 +7,11 @@ module.exports = function override(config) {
     stream: require.resolve("stream-browserify"),
     buffer: require.resolve("buffer/"),
     util: require.resolve("util/"),
+    querystring: require.resolve("querystring-es3"),
+    crypto: require.resolve("crypto-browserify"),
+    path: require.resolve("path-browserify"),
+    os: require.resolve("os-browserify/browser"),
+    fs: false, // fs is not available in the browser
   };
 
   config.plugins.push(

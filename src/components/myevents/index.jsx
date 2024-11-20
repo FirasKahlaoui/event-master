@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { collection, query, where, getDocs, getDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
 import "./MyEvents.css";
@@ -22,7 +29,10 @@ const MyEvents = () => {
         );
         const createdEventsSnapshot = await getDocs(createdEventsQuery);
         setCreatedEvents(
-          createdEventsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+          createdEventsSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
         );
 
         // Fetch events joined by the user
@@ -35,7 +45,10 @@ const MyEvents = () => {
           );
           const joinedEventsSnapshot = await getDocs(joinedEventsQuery);
           setJoinedEvents(
-            joinedEventsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+            joinedEventsSnapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }))
           );
         }
       } catch (error) {

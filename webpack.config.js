@@ -8,6 +8,7 @@ module.exports = {
       os: require.resolve("os-browserify/browser"),
       https: require.resolve("https-browserify"),
       stream: require.resolve("stream-browserify"),
+      fs: false, // fs is not available in the browser
     },
   },
 };
