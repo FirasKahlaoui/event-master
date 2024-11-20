@@ -1,23 +1,75 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { db } from "../../firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { uploadImage } from "../utils/cloudinaryHelper";
 
+const topicsList = [
+  "Technology",
+  "Music",
+  "Sports",
+  "Art",
+  "Science",
+  "Travel",
+  "Health",
+  "Education",
+  "Business",
+  "Finance",
+  "Food",
+  "Lifestyle",
+  "Fashion",
+  "Photography",
+  "Gaming",
+  "Movies",
+  "Books",
+  "Fitness",
+  "Politics",
+  "History",
+  "Nature",
+  "Environment",
+  "DIY",
+  "Crafts",
+  "Parenting",
+  "Relationships",
+  "Spirituality",
+  "Comedy",
+  "Theater",
+];
+
 const CreateEvent = () => {
   const [title, setTitle] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [selectedTopics, setSelectedTopics] = useState([]);
 
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
   };
 
+  const handleTopicToggle = (topic) => {
+    setSelectedTopics((prevTopics) =>
+      prevTopics.includes(topic)
+        ? prevTopics.filter((t) => t !== topic)
+        : [...prevTopics, topic]
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !description || !date || !location || !imageFile) {
-      alert("Please fill in all fields and select an image.");
+    if (
+      !title ||
+      !shortDescription ||
+      !description ||
+      !date ||
+      !location ||
+      !imageFile ||
+      selectedTopics.length === 0
+    ) {
+      alert(
+        "Please fill in all fields, select an image, and choose at least one topic."
+      );
       return;
     }
 
@@ -28,10 +80,12 @@ const CreateEvent = () => {
       // Save event details to Firestore with the image URL from Cloudinary
       const newEvent = {
         title,
+        shortDescription,
         description,
         date,
         location,
         image: uploadedImage, // The Cloudinary URL of the image
+        topics: selectedTopics,
       };
       await addDoc(collection(db, "events"), newEvent);
 
@@ -50,6 +104,12 @@ const CreateEvent = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <input
+        type="text"
+        placeholder="Short Description"
+        value={shortDescription}
+        onChange={(e) => setShortDescription(e.target.value)}
+      />
       <textarea
         placeholder="Description"
         value={description}
@@ -67,6 +127,19 @@ const CreateEvent = () => {
         onChange={(e) => setLocation(e.target.value)}
       />
       <input type="file" onChange={handleFileChange} />
+      <div className="topics-container">
+        {topicsList.map((topic) => (
+          <div
+            key={topic}
+            className={`topic-item ${
+              selectedTopics.includes(topic) ? "selected" : ""
+            }`}
+            onClick={() => handleTopicToggle(topic)}
+          >
+            {topic}
+          </div>
+        ))}
+      </div>
       <button type="submit">Create Event</button>
     </form>
   );
