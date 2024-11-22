@@ -48,21 +48,21 @@ const Navbar = () => {
       <nav className="navbar-links">
         <NavLink
           to="/home"
-          activeClassName="active-link"
+          className={({ isActive }) => (isActive ? "active-link" : "")}
           onClick={handleNavLinkClick}
         >
           Home
         </NavLink>
         <NavLink
           to="/my-events"
-          activeClassName="active-link"
+          className={({ isActive }) => (isActive ? "active-link" : "")}
           onClick={handleNavLinkClick}
         >
           My Events
         </NavLink>
         <NavLink
           to="/explore"
-          activeClassName="active-link"
+          className={({ isActive }) => (isActive ? "active-link" : "")}
           onClick={handleNavLinkClick}
         >
           Explore

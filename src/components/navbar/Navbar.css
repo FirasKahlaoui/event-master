@@ -45,7 +45,7 @@
 
 .navbar-links a:hover,
 .navbar-links .active-link {
-  color: #d1ac00; /* Gold on hover */
+  color: #d1ac00; /* Gold on hover and active */
 }
 
 .navbar-profile {
@@ -116,13 +116,9 @@
   font-size: 0.9rem;
 }
 
-.navbar-links {
-  display: flex;
-  gap: 20px;
-}
-
-.navbar-links a,
 .login-link {
+  background-color: transparent;
+  border: 1px solid #faf4d3;
   color: #faf4d3;
   text-decoration: none;
   font-weight: 500;
@@ -133,84 +129,7 @@
   align-items: center;
 }
 
-.navbar-links a:hover,
 .login-link:hover {
   color: #faf4d3;
-  background-color: #d1ac00;
-}
-
-.navbar-links .active-link {
-  color: #d1ac00;
-}
-
-.login-link {
-  background-color: transparent;
-  border: 1px solid #faf4d3;
-  text-align: center;
-  margin-top: -3px;
-}
-
-/* Dropdown Menu for Smaller Screens */
-.navbar-dropdown {
-  display: none;
-  position: relative;
-}
-
-.navbar-dropdown button {
-  background-color: #0c1618;
-  color: #faf4d3;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.navbar-dropdown button:hover {
-  background-color: #d1ac00;
-}
-
-.navbar-dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #0c1618;
-  color: #faf4d3;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  flex-direction: column;
-}
-
-.navbar-dropdown-content a {
-  padding: 10px 20px;
-  text-decoration: none;
-  color: #faf4d3;
-  display: block;
-  transition: background-color 0.3s ease;
-}
-
-.navbar-dropdown-content a:hover {
-  background-color: #d1ac00;
-}
-
-@media (max-width: 768px) {
-  .navbar-links {
-    display: none;
-  }
-
-  .navbar-dropdown {
-    display: flex;
-  }
-
-  .navbar-profile {
-    margin-left: auto;
-  }
-}
-
-/* Show Dropdown Content when Button is Clicked */
-.navbar-dropdown-content.active {
-  display: flex;
+  background-color: #d1ac00; /* Gold on hover */
 }

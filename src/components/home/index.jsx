@@ -22,7 +22,7 @@ const HomePage = () => {
     fetchEvents();
   }, []);
 
-  // Always display only the first 2 events
+
   const displayedEvents = events.slice(0, 2);
 
   return (
