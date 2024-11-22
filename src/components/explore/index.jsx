@@ -7,6 +7,7 @@ import "./Explore.css";
 
 const Explore = () => {
   const [events, setEvents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,14 +32,29 @@ const Explore = () => {
     navigate(`/event/${eventId}`);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredEvents = events.filter((event) =>
+    event.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <Navbar />
       <div className="explore-container">
         <h1>Explore Events</h1>
+        <input
+          type="text"
+          placeholder="Search events..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="search-bar"
+        />
         <div className="explore-event-list">
-          {events.length > 0 ? (
-            events.map((event) => (
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((event) => (
               <div className="explore-event-item" key={event.id}>
                 <img
                   src={event.image || "/assets/default-event.jpg"}
