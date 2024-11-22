@@ -4,7 +4,7 @@ import { AuthProvider } from "./contexts/authContext";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import Home from "./components/home";
-import EventDetails from "./components/eventdetails/EventDetails";
+import EventDetails from "./components/eventdetails";
 import SelectTopics from "./components/selecttopics";
 import MyEvents from "./components/myevents";
 import CreateEvent from "./components/createevent";
