@@ -167,8 +167,8 @@
 
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .navbar-links {
@@ -183,7 +183,7 @@
   }
 
   .navbar-profile {
-    margin-top: 10px;
+    margin-left: auto;
   }
 
   .hamburger {
