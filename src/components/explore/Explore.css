@@ -75,3 +75,68 @@
 .explore-event-link:hover {
   background-color: #f6be9a;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .explore-container {
+    padding: 15px;
+  }
+
+  .explore-container h1 {
+    font-size: 22px;
+  }
+
+  .search-bar {
+    font-size: 14px;
+  }
+
+  .explore-event-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .explore-event-details h3 {
+    font-size: 18px;
+  }
+
+  .explore-event-details p {
+    font-size: 12px;
+  }
+
+  .explore-event-link {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .explore-container {
+    padding: 10px;
+  }
+
+  .explore-container h1 {
+    font-size: 20px;
+  }
+
+  .search-bar {
+    font-size: 12px;
+  }
+
+  .explore-event-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .explore-event-details h3 {
+    font-size: 16px;
+  }
+
+  .explore-event-details p {
+    font-size: 12px;
+  }
+
+  .explore-event-link {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}

@@ -66,3 +66,64 @@
   font-size: 1em;
   color: #666;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .home-main {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .left-section,
+  .right-section {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .left-section {
+    padding-bottom: 20px;
+  }
+
+  .left-section h1 {
+    font-size: 2em;
+  }
+
+  .left-section p {
+    font-size: 1em;
+  }
+
+  .right-section .event-card h3 {
+    font-size: 1.2em;
+  }
+
+  .right-section .event-card p {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-main {
+    padding: 10px;
+  }
+
+  .left-section h1 {
+    font-size: 1.8em;
+  }
+
+  .left-section p {
+    font-size: 0.9em;
+  }
+
+  .login-link {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+
+  .right-section .event-card h3 {
+    font-size: 1em;
+  }
+
+  .right-section .event-card p {
+    font-size: 0.8em;
+  }
+}
