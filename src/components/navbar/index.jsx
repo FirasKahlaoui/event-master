@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { useAuth } from "../../contexts/authContext";
 
@@ -7,6 +7,7 @@ const Navbar = () => {
   const { currentUser, logout } = useAuth();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleDropdownToggle = () => {
     setDropdownVisible((prev) => !prev);
@@ -25,6 +26,18 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleLogout = async () => {
+    await logout();
+    navigate("/home");
+  };
+
+  const handleNavLinkClick = (e) => {
+    if (!currentUser) {
+      e.preventDefault();
+      navigate("/login");
+    }
+  };
+
   return (
     <header className="navbar">
       <div className="navbar-brand">
@@ -33,13 +46,25 @@ const Navbar = () => {
         </Link>
       </div>
       <nav className="navbar-links">
-        <NavLink to="/home" activeClassName="active-link">
+        <NavLink
+          to="/home"
+          activeClassName="active-link"
+          onClick={handleNavLinkClick}
+        >
           Home
         </NavLink>
-        <NavLink to="/my-events" activeClassName="active-link">
+        <NavLink
+          to="/my-events"
+          activeClassName="active-link"
+          onClick={handleNavLinkClick}
+        >
           My Events
         </NavLink>
-        <NavLink to="/explore" activeClassName="active-link">
+        <NavLink
+          to="/explore"
+          activeClassName="active-link"
+          onClick={handleNavLinkClick}
+        >
           Explore
         </NavLink>
       </nav>
@@ -56,7 +81,7 @@ const Navbar = () => {
               <div className="dropdown-content">
                 <span>Hello, {currentUser.displayName || "User"}!</span>
                 <Link to="/profile">Profile</Link>
-                <button onClick={logout}>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
               </div>
             )}
           </div>
