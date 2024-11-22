@@ -34,7 +34,7 @@ const MyEvents = () => {
             ...doc.data(),
           }))
         );
-
+  
         // Fetch events joined by the user
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         if (userDoc.exists()) {
@@ -57,7 +57,7 @@ const MyEvents = () => {
         console.error("Error fetching events:", error);
       }
     };
-
+  
     fetchEvents();
   }, [currentUser.uid]);
 

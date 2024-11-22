@@ -4,6 +4,7 @@ import { db } from "../../firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { uploadImage } from "../utils/cloudinaryHelper";
 import Navbar from "../navbar";
+import { useAuth } from "../../contexts/authContext";
 import "./CreateEvent.css";
 
 const topicsList = [
@@ -39,6 +40,7 @@ const topicsList = [
 ];
 
 const CreateEvent = () => {
+  const { currentUser } = useAuth();
   const [title, setTitle] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [description, setDescription] = useState("");
@@ -90,6 +92,7 @@ const CreateEvent = () => {
         location,
         image: uploadedImage, // The Cloudinary URL of the image
         topics: selectedTopics,
+        creatorId: currentUser.uid, // Add the creator's user ID
       };
       await addDoc(collection(db, "events"), newEvent);
 
