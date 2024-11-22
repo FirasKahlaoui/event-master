@@ -136,11 +136,11 @@
 .navbar-links a:hover,
 .login-link:hover {
   color: #faf4d3;
-  background-color: #d1ac00; /* Gold on hover */
+  background-color: #d1ac00;
 }
 
 .navbar-links .active-link {
-  color: #d1ac00; /* Gold */
+  color: #d1ac00;
 }
 
 .login-link {
@@ -150,56 +150,67 @@
   margin-top: -3px;
 }
 
-/* Hamburger Menu */
-.hamburger {
+/* Dropdown Menu for Smaller Screens */
+.navbar-dropdown {
   display: none;
-  flex-direction: column;
-  cursor: pointer;
+  position: relative;
 }
 
-.hamburger div {
-  width: 25px;
-  height: 3px;
-  background-color: #faf4d3;
-  margin: 4px 0;
-  transition: 0.4s;
+.navbar-dropdown button {
+  background-color: #0c1618;
+  color: #faf4d3;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-dropdown button:hover {
+  background-color: #d1ac00;
+}
+
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #0c1618;
+  color: #faf4d3;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  flex-direction: column;
+}
+
+.navbar-dropdown-content a {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #faf4d3;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-dropdown-content a:hover {
+  background-color: #d1ac00;
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
   .navbar-links {
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
     display: none;
   }
 
-  .navbar-links.active {
+  .navbar-dropdown {
     display: flex;
   }
 
   .navbar-profile {
     margin-left: auto;
   }
-
-  .hamburger {
-    display: flex;
-  }
 }
 
-/* Toggle Hamburger Menu */
-.hamburger.active .bar1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.hamburger.active .bar2 {
-  opacity: 0;
-}
-
-.hamburger.active .bar3 {
-  transform: rotate(45deg) translate(-5px, -6px);
+/* Show Dropdown Content when Button is Clicked */
+.navbar-dropdown-content.active {
+  display: flex;
 }
