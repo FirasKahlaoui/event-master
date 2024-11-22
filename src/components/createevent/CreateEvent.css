@@ -1,5 +1,6 @@
 .createEvent-form {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   padding: 20px;
   background-color: #faf4d3;
@@ -68,4 +69,62 @@
 .createEvent-buttons {
   display: flex;
   gap: 10px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .createEvent-form {
+    flex-direction: column;
+  }
+
+  .createEvent-form-left,
+  .createEvent-form-right {
+    width: 100%;
+    padding: 0;
+  }
+
+  .createEvent-form-left {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 70, 67, 0.5);
+  }
+
+  .createEvent-form-right {
+    padding-top: 1rem;
+  }
+
+  .createEvent-form input,
+  .createEvent-form textarea {
+    font-size: 0.875rem;
+  }
+
+  .createEvent-form button {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .createEvent-topic-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .createEvent-form {
+    padding: 10px;
+  }
+
+  .createEvent-form input,
+  .createEvent-form textarea {
+    font-size: 0.75rem;
+  }
+
+  .createEvent-form button {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .createEvent-topic-item {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
 }

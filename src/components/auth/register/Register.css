@@ -12,11 +12,13 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #0c1618;
+  padding: 1rem; /* Add padding for smaller screens */
 }
 
 .register-box {
   display: flex;
-  width: 42rem;
+  width: 100%;
+  max-width: 42rem;
   padding: 1.5rem;
   background-color: rgba(250, 244, 211, 0.95);
   border-radius: 1rem;
@@ -183,4 +185,73 @@ body {
 
 .login-link a:hover {
   color: #0c1618;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .register-box {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .register-left,
+  .register-right {
+    width: 100%;
+    padding: 0;
+    border: none;
+  }
+
+  .register-left {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 70, 67, 0.5);
+  }
+
+  .register-right {
+    padding-top: 1rem;
+  }
+
+  .register-header h3 {
+    font-size: 1.25rem;
+  }
+
+  .form-group input {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .submit-button {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .google-button {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-box {
+    padding: 0.5rem;
+  }
+
+  .register-header h3 {
+    font-size: 1rem;
+  }
+
+  .form-group input {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .submit-button {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .google-button {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
 }
