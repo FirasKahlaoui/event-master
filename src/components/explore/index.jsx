@@ -36,24 +36,24 @@ const Explore = () => {
       <Navbar />
       <div className="explore-container">
         <h1>Explore Events</h1>
-        <div className="event-list">
+        <div className="explore-event-list">
           {events.length > 0 ? (
             events.map((event) => (
-              <div className="event-item" key={event.id}>
+              <div className="explore-event-item" key={event.id}>
                 <img
                   src={event.image || "/assets/default-event.jpg"}
                   alt={event.title}
-                  className="event-thumbnail"
+                  className="explore-event-thumbnail"
                 />
-                <div className="event-details">
+                <div className="explore-event-details">
                   <h3>{event.title}</h3>
                   <p>{event.shortDescription}</p>
-                  <p className="event-date">
+                  <p className="explore-event-date">
                     {new Date(event.date).toLocaleDateString()}
                   </p>
                   <button
                     onClick={() => handleViewDetails(event.id)}
-                    className="event-link"
+                    className="explore-event-link"
                   >
                     View Details
                   </button>

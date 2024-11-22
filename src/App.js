@@ -8,7 +8,7 @@ import EventDetails from "./components/eventdetails/EventDetails";
 import SelectTopics from "./components/selecttopics";
 import MyEvents from "./components/myevents";
 import CreateEvent from "./components/createevent";
-import Explore from "./components/explore/Explore";
+import Explore from "./components/explore";
 
 const App = () => {
   return (

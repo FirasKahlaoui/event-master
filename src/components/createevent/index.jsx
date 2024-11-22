@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { uploadImage } from "../utils/cloudinaryHelper";
+import Navbar from "../navbar";
 import "./CreateEvent.css";
 
 const topicsList = [
@@ -44,6 +46,7 @@ const CreateEvent = () => {
   const [location, setLocation] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
@@ -97,52 +100,68 @@ const CreateEvent = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate("/my-events");
+  };
+
   return (
-    <form className="create-event-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Short Description"
-        value={shortDescription}
-        onChange={(e) => setShortDescription(e.target.value)}
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Location"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-      />
-      <input type="file" onChange={handleFileChange} />
-      <div className="topics-container">
-        {topicsList.map((topic) => (
-          <div
-            key={topic}
-            className={`topic-item ${
-              selectedTopics.includes(topic) ? "selected" : ""
-            }`}
-            onClick={() => handleTopicToggle(topic)}
-          >
-            {topic}
+    <div>
+      <Navbar />
+      <form className="createEvent-form" onSubmit={handleSubmit}>
+        <div className="createEvent-form-left">
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Short Description"
+            value={shortDescription}
+            onChange={(e) => setShortDescription(e.target.value)}
+          />
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <input type="file" onChange={handleFileChange} />
+        </div>
+        <div className="createEvent-form-right">
+          <div className="createEvent-topics-container">
+            {topicsList.map((topic) => (
+              <div
+                key={topic}
+                className={`createEvent-topic-item ${
+                  selectedTopics.includes(topic) ? "createEvent-selected" : ""
+                }`}
+                onClick={() => handleTopicToggle(topic)}
+              >
+                {topic}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <button type="submit">Create Event</button>
-    </form>
+          <div className="createEvent-buttons">
+            <button type="submit">Create Event</button>
+            <button type="button" onClick={handleCancel}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
