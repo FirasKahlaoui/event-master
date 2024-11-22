@@ -31,6 +31,8 @@
 .created-events,
 .joined-events {
   flex: 1;
+  max-width: 50%;
+  overflow-y: auto;
 }
 
 .event-item {
@@ -41,41 +43,26 @@
   margin-bottom: 10px;
 }
 
+.event-item h3 {
+  margin-bottom: 5px;
+  font-size: 1.2em;
+  color: #004643;
+}
+
+.event-item p {
+  margin-bottom: 5px;
+  font-size: 1em;
+  color: #666;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-  .myevents-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .create-event-button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
   .myevents-content {
     flex-direction: column;
   }
 
-  .event-item {
-    padding: 10px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .myevents-container {
-    padding: 10px;
-  }
-
-  .create-event-button {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-
-  .event-item {
-    padding: 8px;
-    font-size: 12px;
+  .created-events,
+  .joined-events {
+    max-width: 100%;
   }
 }
