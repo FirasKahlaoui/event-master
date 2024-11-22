@@ -28,3 +28,42 @@
 .event-details-page button:hover {
   background-color: #f6be9a;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .event-details-page {
+    padding: 15px;
+  }
+
+  .event-details-page h2 {
+    font-size: 20px;
+  }
+
+  .event-details-page p {
+    font-size: 16px;
+  }
+
+  .event-details-page button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-details-page {
+    padding: 10px;
+  }
+
+  .event-details-page h2 {
+    font-size: 18px;
+  }
+
+  .event-details-page p {
+    font-size: 14px;
+  }
+
+  .event-details-page button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
