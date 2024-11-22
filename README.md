@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# Bundles
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bundles in a project typically refer to groups of related files or modules that are packaged together. In this project, the bundles can be identified as follows:
 
-## Available Scripts
+## Authentication Bundle
 
-In the project directory, you can run:
+Contains components and logic related to user authentication.
+-`src/components/auth/login`
+-`src/components/auth/register`
+-`src/contexts/authContext`
+-`src/firebase/auth.js`
 
-### `npm start`
+## Event Management Bundle
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Contains components and logic related to event creation, listing, and details.
+-`src/components/createevent`
+-`src/components/eventlist`
+-`src/components/eventsdetails`
+-`src/firebase/events.js`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Profile Management Bundle
 
-### `npm test`
+Contains components and logic related to user profile management.
+-`src/components/profile`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Entities
 
-### `npm run build`
+Entities in a project typically refer to the main objects or models that represent the core data. In this project, the entities can be identified as follows:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### User
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Represents a user in the system.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Defined in `src/contexts/authContext`
+- Managed in Firestore as seen in `src/components/profile/index.jsx`
 
-### `npm run eject`
+### Event
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Represents an event in the system.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Defined and managed in `src/firebase/events.js`
+- Created in `src/components/createevent/index.jsx`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Database
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The database used in this project is Firestore, a NoSQL database provided by Firebase. The configuration and initialization can be found in:
 
-## Learn More
+- `src/firebase/firebase.js`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Forms
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Forms in the project are used for user input and data submission. Some of the key forms include:
 
-### Code Splitting
+### Registration Form
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Used for user registration.
 
-### Analyzing the Bundle Size
+- Defined in `src/components/auth/register/index.jsx`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Login Form
 
-### Making a Progressive Web App
+Used for user login.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Defined in `src/components/auth/login/index.jsx`
 
-### Advanced Configuration
+### Event Creation Form
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Used for creating new events.
 
-### Deployment
+- Defined in `src/components/createevent/index.jsx`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Profile Update Form
 
-### `npm run build` fails to minifyb
+Used for updating user profile information.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Defined in `src/components/profile/index.jsx`
+
+## Objects
+
+Objects in the project refer to instances of classes or data structures used throughout the application. Some key objects include:
+
+### User Object
+
+Represents the current user and their state.
+
+- Managed in `src/contexts/authContext`
+
+### Event Object
+
+Represents an event and its details.
+
+- Managed in `src/firebase/events.js`
