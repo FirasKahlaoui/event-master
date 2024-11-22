@@ -10,6 +10,7 @@ import MyEvents from "./components/myevents";
 import CreateEvent from "./components/createevent";
 import Explore from "./components/explore";
 import Profile from "./components/profile";
+import TwoFactorSetup from "./components/auth/TwoFactorSetup";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/create-event" element={<CreateEvent />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/two-factor-setup" element={<TwoFactorSetup />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
