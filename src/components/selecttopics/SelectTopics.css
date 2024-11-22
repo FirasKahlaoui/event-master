@@ -57,3 +57,46 @@
   background-color: #004643;
   color: #faf4d3;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .create-event-form {
+    padding: 15px;
+  }
+
+  .create-event-form input,
+  .create-event-form textarea {
+    font-size: 0.875rem;
+  }
+
+  .create-event-form button {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+  }
+
+  .topic-item {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-event-form {
+    padding: 10px;
+  }
+
+  .create-event-form input,
+  .create-event-form textarea {
+    font-size: 0.75rem;
+  }
+
+  .create-event-form button {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  .topic-item {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}
