@@ -8,6 +8,7 @@ import EventDetails from "./components/eventdetails/EventDetails";
 import SelectTopics from "./components/selecttopics";
 import MyEvents from "./components/myevents";
 import CreateEvent from "./components/createevent";
+import Explore from "./components/explore/Explore";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/select-topics" element={<SelectTopics />} />
           <Route path="/my-events" element={<MyEvents />} />
           <Route path="/create-event" element={<CreateEvent />} />
+          <Route path="/explore" element={<Explore />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
