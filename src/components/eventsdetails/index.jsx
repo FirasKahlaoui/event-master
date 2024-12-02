@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
 import "./EventsDetails.css";
@@ -15,6 +15,7 @@ const EventsDetails = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [eventLikes, setEventLikes] = useState(0);
+  const [userHasLiked, setUserHasLiked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,9 +23,21 @@ const EventsDetails = () => {
       try {
         const eventDoc = await getDoc(doc(db, "events", id));
         if (eventDoc.exists()) {
-          setEvent(eventDoc.data());
-          setComments(eventDoc.data().comments || []);
-          setEventLikes(eventDoc.data().likes || 0);
+          const eventData = eventDoc.data();
+          setEvent({
+            ...eventData,
+            likedBy: eventData.likedBy || [],
+            comments: eventData.comments?.map(comment => ({
+              ...comment,
+              likedBy: comment.likedBy || []
+            })) || []
+          });
+          setComments(eventData.comments?.map(comment => ({
+            ...comment,
+            likedBy: comment.likedBy || []
+          })) || []);
+          setEventLikes(eventData.likes || 0);
+          setUserHasLiked(eventData.likedBy?.includes(currentUser.uid) || false);
         } else {
           console.error("Event not found");
         }
@@ -69,6 +82,7 @@ const EventsDetails = () => {
       text: newComment,
       userId: currentUser.uid,
       likes: 0,
+      likedBy: [],
     };
     try {
       const eventRef = doc(db, "events", id);
@@ -94,7 +108,12 @@ const EventsDetails = () => {
   const handleLikeComment = async (commentId) => {
     const updatedComments = comments.map(comment => {
       if (comment.id === commentId) {
-        return { ...comment, likes: comment.likes + 1 };
+        const hasLiked = comment.likedBy.includes(currentUser.uid);
+        const updatedLikes = hasLiked ? comment.likes - 1 : comment.likes + 1;
+        const updatedLikedBy = hasLiked
+          ? comment.likedBy.filter(uid => uid !== currentUser.uid)
+          : [...comment.likedBy, currentUser.uid];
+        return { ...comment, likes: updatedLikes, likedBy: updatedLikedBy };
       }
       return comment;
     });
@@ -110,8 +129,21 @@ const EventsDetails = () => {
   const handleLikeEvent = async () => {
     try {
       const eventRef = doc(db, "events", id);
-      await updateDoc(eventRef, { likes: eventLikes + 1 });
-      setEventLikes(eventLikes + 1);
+      if (userHasLiked) {
+        await updateDoc(eventRef, {
+          likes: eventLikes - 1,
+          likedBy: arrayRemove(currentUser.uid),
+        });
+        setEventLikes(eventLikes - 1);
+        setUserHasLiked(false);
+      } else {
+        await updateDoc(eventRef, {
+          likes: eventLikes + 1,
+          likedBy: arrayUnion(currentUser.uid),
+        });
+        setEventLikes(eventLikes + 1);
+        setUserHasLiked(true);
+      }
     } catch (error) {
       console.error("Error liking event:", error);
     }
@@ -145,7 +177,9 @@ const EventsDetails = () => {
         <button onClick={handleJoinEvent} disabled={isJoining || isJoined}>
           {isJoining ? "Joining..." : isJoined ? "Joined" : "Join Event"}
         </button>
-        <button onClick={handleLikeEvent}>Like Event ({eventLikes})</button>
+        <button onClick={handleLikeEvent}>
+          {userHasLiked ? "Unlike Event" : "Like Event"} ({eventLikes})
+        </button>
         <button onClick={handleShareEvent}>Share Event</button>
         {isJoined && (
           <button onClick={() => navigate("/my-events")}>View My Events</button>
@@ -163,7 +197,9 @@ const EventsDetails = () => {
             {comments.map(comment => (
               <li key={comment.id}>
                 <p>{comment.text}</p>
-                <button onClick={() => handleLikeComment(comment.id)}>Like ({comment.likes})</button>
+                <button onClick={() => handleLikeComment(comment.id)}>
+                  {comment.likedBy.includes(currentUser.uid) ? "Unlike" : "Like"} ({comment.likes})
+                </button>
                 {comment.userId === currentUser.uid && (
                   <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                 )}
