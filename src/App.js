@@ -8,6 +8,7 @@ import EventsDetails from "./components/eventsdetails";
 import SelectTopics from "./components/selecttopics";
 import MyEvents from "./components/myevents";
 import CreateEvent from "./components/createevent";
+import ManageEvent from "./components/manageevent";
 import Explore from "./components/explore";
 import Profile from "./components/profile";
 import TwoFactorSetup from "./components/auth/TwoFactorSetup";
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/select-topics" element={<SelectTopics />} />
           <Route path="/my-events" element={<MyEvents />} />
           <Route path="/create-event" element={<CreateEvent />} />
+          <Route path="/manage-event/:id" element={<ManageEvent />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/two-factor-setup" element={<TwoFactorSetup />} />
