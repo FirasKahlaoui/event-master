@@ -8,6 +8,8 @@ import {
   getDocs,
   getDoc,
   doc,
+  updateDoc,
+  arrayRemove,
 } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
@@ -34,7 +36,7 @@ const MyEvents = () => {
             ...doc.data(),
           }))
         );
-  
+
         // Fetch events joined by the user
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         if (userDoc.exists()) {
@@ -57,12 +59,28 @@ const MyEvents = () => {
         console.error("Error fetching events:", error);
       }
     };
-  
+
     fetchEvents();
   }, [currentUser.uid]);
 
   const handleCreateEvent = () => {
     navigate("/create-event");
+  };
+
+  const handleManageEvent = (eventId) => {
+    navigate(`/manage-event/${eventId}`);
+  };
+
+  const handleCancelJoin = async (eventId) => {
+    try {
+      const userRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userRef, { joinedEvents: arrayRemove(eventId) });
+      const eventRef = doc(db, "events", eventId);
+      await updateDoc(eventRef, { joinedUsers: arrayRemove(currentUser.uid) });
+      setJoinedEvents(joinedEvents.filter(event => event.id !== eventId));
+    } catch (error) {
+      console.error("Error canceling join:", error);
+    }
   };
 
   return (
@@ -81,9 +99,15 @@ const MyEvents = () => {
             {createdEvents.length > 0 ? (
               createdEvents.map((event) => (
                 <div key={event.id} className="event-item">
-                  <h3>{event.title}</h3>
-                  <p>{event.description}</p>
-                  <p>{new Date(event.date).toLocaleDateString()}</p>
+                  <img src={event.image} alt={event.title} className="event-image" />
+                  <div className="event-details">
+                    <h3>{event.title}</h3>
+                    <p>{event.description}</p>
+                    <p>{new Date(event.date).toLocaleDateString()}</p>
+                    <button onClick={() => handleManageEvent(event.id)} className="manage-button">
+                      Manage
+                    </button>
+                  </div>
                 </div>
               ))
             ) : (
@@ -95,9 +119,15 @@ const MyEvents = () => {
             {joinedEvents.length > 0 ? (
               joinedEvents.map((event) => (
                 <div key={event.id} className="event-item">
-                  <h3>{event.title}</h3>
-                  <p>{event.description}</p>
-                  <p>{new Date(event.date).toLocaleDateString()}</p>
+                  <img src={event.image} alt={event.title} className="event-image" />
+                  <div className="event-details">
+                    <h3>{event.title}</h3>
+                    <p>{event.description}</p>
+                    <p>{new Date(event.date).toLocaleDateString()}</p>
+                    <button onClick={() => handleCancelJoin(event.id)} className="cancel-button">
+                      Cancel Join
+                    </button>
+                  </div>
                 </div>
               ))
             ) : (

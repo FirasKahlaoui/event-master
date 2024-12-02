@@ -1,5 +1,6 @@
 .myevents-container {
   padding: 20px;
+  background-color: #faf4d3;
 }
 
 .myevents-header {
@@ -11,7 +12,7 @@
 
 .create-event-button {
   padding: 10px 20px;
-  background-color: #004643;
+  background-color: #d1ac00;
   color: #faf4d3;
   border: none;
   border-radius: 5px;
@@ -20,7 +21,7 @@
 }
 
 .create-event-button:hover {
-  background-color: #0c1618;
+  background-color: #f6be9a;
 }
 
 .myevents-content {
@@ -31,28 +32,44 @@
 .created-events,
 .joined-events {
   flex: 1;
-  max-width: 50%;
-  overflow-y: auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .event-item {
-  padding: 15px;
-  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.event-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.event-details {
+  flex: 1;
+}
+
+.manage-button,
+.cancel-button {
+  padding: 10px 20px;
+  background-color: #004643;
+  color: #faf4d3;
+  border: none;
   border-radius: 5px;
-  background-color: #fafafa;
-  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.event-item h3 {
-  margin-bottom: 5px;
-  font-size: 1.2em;
-  color: #004643;
-}
-
-.event-item p {
-  margin-bottom: 5px;
-  font-size: 1em;
-  color: #666;
+.manage-button:hover,
+.cancel-button:hover {
+  background-color: #d1ac00;
 }
 
 /* Media Queries for Responsiveness */
@@ -60,9 +77,22 @@
   .myevents-content {
     flex-direction: column;
   }
+}
 
-  .created-events,
-  .joined-events {
-    max-width: 100%;
+@media (max-width: 480px) {
+  .event-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .event-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .manage-button,
+  .cancel-button {
+    width: 100%;
   }
 }
