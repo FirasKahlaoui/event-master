@@ -8,12 +8,14 @@ import {
   getDocs,
   getDoc,
   doc,
+  deleteDoc,
   updateDoc,
   arrayRemove,
 } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
 import "./MyEvents.css";
+import emailjs from "emailjs-com";
 
 const MyEvents = () => {
   const { currentUser } = useAuth();
@@ -77,9 +79,51 @@ const MyEvents = () => {
       await updateDoc(userRef, { joinedEvents: arrayRemove(eventId) });
       const eventRef = doc(db, "events", eventId);
       await updateDoc(eventRef, { joinedUsers: arrayRemove(currentUser.uid) });
-      setJoinedEvents(joinedEvents.filter(event => event.id !== eventId));
+      setJoinedEvents(joinedEvents.filter((event) => event.id !== eventId));
     } catch (error) {
       console.error("Error canceling join:", error);
+    }
+  };
+
+  const handleDeleteEvent = async (eventId, joinedUsers) => {
+    try {
+      // Delete the event from Firestore
+      await deleteDoc(doc(db, "events", eventId));
+      setCreatedEvents(createdEvents.filter((event) => event.id !== eventId));
+
+      // Send email notifications to joined users
+      joinedUsers.forEach(async (userId) => {
+        const userDoc = await getDoc(doc(db, "users", userId));
+        if (userDoc.exists()) {
+          const userEmail = userDoc.data().email;
+          const templateParams = {
+            to_name: userDoc.data().name,
+            to_email: userEmail,
+            message: "The event you joined has been removed.",
+          };
+          emailjs
+            .send(
+              "service_a2fgtpl",
+              "template_54gkyuq",
+              templateParams,
+              "YLIxjdVVSO6A6_061"
+            )
+            .then(
+              (response) => {
+                console.log(
+                  "Email sent successfully:",
+                  response.status,
+                  response.text
+                );
+              },
+              (error) => {
+                console.error("Error sending email:", error);
+              }
+            );
+        }
+      });
+    } catch (error) {
+      console.error("Error deleting event:", error);
     }
   };
 
@@ -99,13 +143,28 @@ const MyEvents = () => {
             {createdEvents.length > 0 ? (
               createdEvents.map((event) => (
                 <div key={event.id} className="event-item">
-                  <img src={event.image} alt={event.title} className="event-image" />
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="event-image"
+                  />
                   <div className="event-details">
                     <h3>{event.title}</h3>
                     <p>{event.description}</p>
                     <p>{new Date(event.date).toLocaleDateString()}</p>
-                    <button onClick={() => handleManageEvent(event.id)} className="manage-button">
+                    <button
+                      onClick={() => handleManageEvent(event.id)}
+                      className="manage-button"
+                    >
                       Manage
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleDeleteEvent(event.id, event.joinedUsers)
+                      }
+                      className="delete-button"
+                    >
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -119,12 +178,19 @@ const MyEvents = () => {
             {joinedEvents.length > 0 ? (
               joinedEvents.map((event) => (
                 <div key={event.id} className="event-item">
-                  <img src={event.image} alt={event.title} className="event-image" />
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="event-image"
+                  />
                   <div className="event-details">
                     <h3>{event.title}</h3>
                     <p>{event.description}</p>
                     <p>{new Date(event.date).toLocaleDateString()}</p>
-                    <button onClick={() => handleCancelJoin(event.id)} className="cancel-button">
+                    <button
+                      onClick={() => handleCancelJoin(event.id)}
+                      className="cancel-button"
+                    >
                       Cancel Join
                     </button>
                   </div>

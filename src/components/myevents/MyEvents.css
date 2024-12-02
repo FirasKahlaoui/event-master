@@ -57,7 +57,8 @@
 }
 
 .manage-button,
-.cancel-button {
+.cancel-button,
+.delete-button {
   padding: 10px 20px;
   background-color: #004643;
   color: #faf4d3;
@@ -65,10 +66,12 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  margin-right: 10px;
 }
 
 .manage-button:hover,
-.cancel-button:hover {
+.cancel-button:hover,
+.delete-button:hover {
   background-color: #d1ac00;
 }
 
@@ -92,7 +95,8 @@
   }
 
   .manage-button,
-  .cancel-button {
+  .cancel-button,
+  .delete-button {
     width: 100%;
   }
 }
