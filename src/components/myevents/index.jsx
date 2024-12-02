@@ -91,42 +91,61 @@ const MyEvents = () => {
       await deleteDoc(doc(db, "events", eventId));
       setCreatedEvents(createdEvents.filter((event) => event.id !== eventId));
 
-      // Send email notifications to joined users
-      joinedUsers.forEach(async (userId) => {
-        const userDoc = await getDoc(doc(db, "users", userId));
-        if (userDoc.exists()) {
-          const userEmail = userDoc.data().email;
-          const templateParams = {
-            to_name: userDoc.data().name,
-            to_email: userEmail,
-            message: "The event you joined has been removed.",
-          };
-          emailjs
-            .send(
-              "service_a2fgtpl",
-              "template_54gkyuq",
-              templateParams,
-              "YLIxjdVVSO6A6_061"
-            )
-            .then(
-              (response) => {
-                console.log(
-                  "Email sent successfully:",
-                  response.status,
-                  response.text
-                );
-              },
-              (error) => {
-                console.error("Error sending email:", error);
-              }
-            );
+      // Check if joinedUsers is iterable
+      if (Array.isArray(joinedUsers) && joinedUsers.length > 0) {
+        // Send email notifications to joined users
+        for (const userId of joinedUsers) {
+          const userDoc = await getDoc(doc(db, "users", userId));
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            console.log("User Data:", userData);
+
+            const userEmail = userData.email;
+            const templateParams = {
+              to_email: userEmail,
+              message: "The event you joined has been removed.",
+            };
+
+            // Print all the variables
+            console.log("Sending email with the following parameters:");
+            console.log("Service ID: service_a2fgtpl");
+            console.log("Template ID: template_54gkyuq");
+            console.log("Public Key: YLIxjdVVSO6A6_061");
+            console.log("Template Params:", templateParams);
+
+            emailjs
+              .send(
+                "service_a2fgtpl",
+                "template_54gkyuq",
+                templateParams,
+                "YLIxjdVVSO6A6_061"
+              )
+              .then(
+                (response) => {
+                  console.log(
+                    "Email sent successfully:",
+                    response.status,
+                    response.text
+                  );
+                },
+                (error) => {
+                  console.error("Error sending email:", error);
+                  console.error("Error details:", error.text);
+                }
+              );
+          } else {
+            console.error(`User document for userId ${userId} does not exist.`);
+          }
         }
-      });
+      } else {
+        console.log(
+          "No users joined the event or joinedUsers is not iterable."
+        );
+      }
     } catch (error) {
       console.error("Error deleting event:", error);
     }
   };
-
   return (
     <div>
       <Navbar />
