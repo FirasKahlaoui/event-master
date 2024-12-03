@@ -101,38 +101,44 @@ const MyEvents = () => {
             console.log("User Data:", userData);
 
             const userEmail = userData.email;
-            const templateParams = {
-              to_email: userEmail,
-              message: "The event you joined has been removed.",
-            };
+            if (userEmail) {
+              const templateParams = {
+                to_email: userEmail,
+                message: "The event you joined has been removed.",
+              };
 
-            // Print all the variables
-            console.log("Sending email with the following parameters:");
-            console.log("Service ID: service_a2fgtpl");
-            console.log("Template ID: template_54gkyuq");
-            console.log("Public Key: YLIxjdVVSO6A6_061");
-            console.log("Template Params:", templateParams);
+              // Print all the variables
+              console.log("Sending email with the following parameters:");
+              console.log("Service ID: service_a2fgtpl");
+              console.log("Template ID: template_54gkyuq");
+              console.log("Public Key: YLIxjdVVSO6A6_061");
+              console.log("Template Params:", templateParams);
 
-            emailjs
-              .send(
-                "service_a2fgtpl",
-                "template_54gkyuq",
-                templateParams,
-                "YLIxjdVVSO6A6_061"
-              )
-              .then(
-                (response) => {
-                  console.log(
-                    "Email sent successfully:",
-                    response.status,
-                    response.text
-                  );
-                },
-                (error) => {
-                  console.error("Error sending email:", error);
-                  console.error("Error details:", error.text);
-                }
+              emailjs
+                .send(
+                  "service_a2fgtpl",
+                  "template_54gkyuq",
+                  templateParams,
+                  "YLIxjdVVSO6A6_061"
+                )
+                .then(
+                  (response) => {
+                    console.log(
+                      "Email sent successfully:",
+                      response.status,
+                      response.text
+                    );
+                  },
+                  (error) => {
+                    console.error("Error sending email:", error);
+                    console.error("Error details:", error.text);
+                  }
+                );
+            } else {
+              console.warn(
+                `User with userId ${userId} does not have an email address.`
               );
+            }
           } else {
             console.error(`User document for userId ${userId} does not exist.`);
           }
