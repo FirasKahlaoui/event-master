@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
 import "./EventsDetails.css";
@@ -28,17 +35,22 @@ const EventsDetails = () => {
           setEvent({
             ...eventData,
             likedBy: eventData.likedBy || [],
-            comments: eventData.comments?.map(comment => ({
-              ...comment,
-              likedBy: comment.likedBy || []
-            })) || []
+            comments:
+              eventData.comments?.map((comment) => ({
+                ...comment,
+                likedBy: comment.likedBy || [],
+              })) || [],
           });
-          setComments(eventData.comments?.map(comment => ({
-            ...comment,
-            likedBy: comment.likedBy || []
-          })) || []);
+          setComments(
+            eventData.comments?.map((comment) => ({
+              ...comment,
+              likedBy: comment.likedBy || [],
+            })) || []
+          );
           setEventLikes(eventData.likes || 0);
-          setUserHasLiked(eventData.likedBy?.includes(currentUser.uid) || false);
+          setUserHasLiked(
+            eventData.likedBy?.includes(currentUser.uid) || false
+          );
           setJoinedUsersCount(eventData.joinedUsers?.length || 0);
         } else {
           console.error("Event not found");
@@ -71,6 +83,14 @@ const EventsDetails = () => {
       await setDoc(userRef, { joinedEvents: arrayUnion(id) }, { merge: true });
       const eventRef = doc(db, "events", id);
       await updateDoc(eventRef, { joinedUsers: arrayUnion(currentUser.uid) });
+
+      // Add user to the joined collection for the event
+      const joinedRef = doc(db, "events", id, "joined", currentUser.uid);
+      await setDoc(joinedRef, {
+        userId: currentUser.uid,
+        email: currentUser.email,
+      });
+
       setIsJoined(true);
       setJoinedUsersCount(joinedUsersCount + 1);
     } catch (error) {
@@ -79,7 +99,6 @@ const EventsDetails = () => {
       setIsJoining(false);
     }
   };
-
   const handleAddComment = async () => {
     if (newComment.trim() === "") return;
     const comment = {
@@ -100,7 +119,9 @@ const EventsDetails = () => {
   };
 
   const handleDeleteComment = async (commentId) => {
-    const updatedComments = comments.filter(comment => comment.id !== commentId);
+    const updatedComments = comments.filter(
+      (comment) => comment.id !== commentId
+    );
     try {
       const eventRef = doc(db, "events", id);
       await updateDoc(eventRef, { comments: updatedComments });
@@ -111,12 +132,12 @@ const EventsDetails = () => {
   };
 
   const handleLikeComment = async (commentId) => {
-    const updatedComments = comments.map(comment => {
+    const updatedComments = comments.map((comment) => {
       if (comment.id === commentId) {
         const hasLiked = comment.likedBy.includes(currentUser.uid);
         const updatedLikes = hasLiked ? comment.likes - 1 : comment.likes + 1;
         const updatedLikedBy = hasLiked
-          ? comment.likedBy.filter(uid => uid !== currentUser.uid)
+          ? comment.likedBy.filter((uid) => uid !== currentUser.uid)
           : [...comment.likedBy, currentUser.uid];
         return { ...comment, likes: updatedLikes, likedBy: updatedLikedBy };
       }
@@ -177,7 +198,9 @@ const EventsDetails = () => {
           <p>Location: {event.location}</p>
           <div className="event-topics">
             {event.topics.map((topic, index) => (
-              <span key={index} className="event-topic">{topic}</span>
+              <span key={index} className="event-topic">
+                {topic}
+              </span>
             ))}
           </div>
           <p>Joined Users: {joinedUsersCount}</p>
@@ -191,7 +214,9 @@ const EventsDetails = () => {
           </button>
           <button onClick={handleShareEvent}>Share Event</button>
           {isJoined && (
-            <button onClick={() => navigate("/my-events")}>View My Events</button>
+            <button onClick={() => navigate("/my-events")}>
+              View My Events
+            </button>
           )}
           <div className="comments-section">
             <h3>Comments ({comments.length})</h3>
@@ -203,14 +228,19 @@ const EventsDetails = () => {
             />
             <button onClick={handleAddComment}>Add Comment</button>
             <ul>
-              {comments.map(comment => (
+              {comments.map((comment) => (
                 <li key={comment.id}>
                   <p>{comment.text}</p>
                   <button onClick={() => handleLikeComment(comment.id)}>
-                    {comment.likedBy.includes(currentUser.uid) ? "Unlike" : "Like"} ({comment.likes})
+                    {comment.likedBy.includes(currentUser.uid)
+                      ? "Unlike"
+                      : "Like"}{" "}
+                    ({comment.likes})
                   </button>
                   {comment.userId === currentUser.uid && (
-                    <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                    <button onClick={() => handleDeleteComment(comment.id)}>
+                      Delete
+                    </button>
                   )}
                 </li>
               ))}
