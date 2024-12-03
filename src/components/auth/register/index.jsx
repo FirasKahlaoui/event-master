@@ -7,7 +7,7 @@ import {
   updateUserProfile,
 } from "../../../firebase/auth";
 import { db } from "../../../firebase/firebase"; // Adjust the import path as needed
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import "./Register.css";
 
 const Register = () => {
@@ -79,11 +79,15 @@ const Register = () => {
         const result = await doSignInWithGoogle();
         const user = result.user;
 
-        // Insert user into Firestore
-        await setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-          name: user.displayName,
-        });
+        // Check if the user document exists in Firestore
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (!userDoc.exists()) {
+          // Insert user into Firestore
+          await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            name: user.displayName,
+          });
+        }
 
         navigate("/select-topics");
       } catch (error) {
