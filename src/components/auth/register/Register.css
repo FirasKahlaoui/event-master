@@ -61,7 +61,7 @@ body {
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
   color: #0c1618;
-  background-color: #f6be9a;
+  background-color: #ffffff; /* Changed from pink to white */
   border: 1px solid #004643;
   border-radius: 0.5rem;
   outline: none;

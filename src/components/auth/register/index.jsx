@@ -6,6 +6,8 @@ import {
   doSignInWithGoogle,
   updateUserProfile,
 } from "../../../firebase/auth";
+import { db } from "../../../firebase/firebase"; // Adjust the import path as needed
+import { doc, setDoc } from "firebase/firestore";
 import "./Register.css";
 
 const Register = () => {
@@ -52,6 +54,13 @@ const Register = () => {
           password
         );
         await updateUserProfile(userCredential.user, { displayName: username });
+
+        // Insert user into Firestore
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          email: userCredential.user.email,
+          name: username,
+        });
+
         navigate("/select-topics");
       } catch (error) {
         setErrorMessage(error.message);
@@ -67,7 +76,15 @@ const Register = () => {
     if (!isRegistering) {
       setIsRegistering(true);
       try {
-        await doSignInWithGoogle();
+        const result = await doSignInWithGoogle();
+        const user = result.user;
+
+        // Insert user into Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          name: user.displayName,
+        });
+
         navigate("/select-topics");
       } catch (error) {
         setErrorMessage(error.message);
