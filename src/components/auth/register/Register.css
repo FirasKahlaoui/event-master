@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #0c1618;
-  padding: 1rem; /* Add padding for smaller screens */
+  padding: 1rem;
 }
 
 .register-box {
@@ -81,7 +81,7 @@ body {
 
 .show-password-button {
   position: absolute;
-  right: 25px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -90,10 +90,36 @@ body {
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
 }
 
 .show-password-button:hover {
   color: #0c1618;
+  background-color: rgba(209, 172, 0, 0.1);
+}
+
+.password-requirements {
+  margin-top: 10px;
+}
+
+.password-requirements p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.password-requirements .valid {
+  color: green;
+}
+
+.password-requirements .invalid {
+  color: red;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
 }
 
 .submit-button {
@@ -113,6 +139,11 @@ body {
 .submit-button:hover {
   background-color: #0c1618;
   transform: translateY(-2px);
+}
+
+.submit-button.disabled {
+  background-color: #d1ac00;
+  cursor: not-allowed;
 }
 
 .register-right {
@@ -166,10 +197,9 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.google-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.5rem;
+.google-button.disabled {
+  background-color: #d1ac00;
+  cursor: not-allowed;
 }
 
 .login-link {

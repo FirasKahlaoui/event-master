@@ -19,10 +19,24 @@ const Register = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+
+  const validatePassword = (password) => {
+    const minLength = password.length >= 6;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    return minLength && hasUpperCase && hasSymbol;
+  };
+
+  const onPasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordValid(validatePassword(newPassword));
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!isRegistering) {
+    if (!isRegistering && passwordValid) {
       setIsRegistering(true);
       try {
         const userCredential = await doCreateUserWithEmailAndPassword(
@@ -88,25 +102,42 @@ const Register = () => {
                 />
               </div>
               <div className="form-group">
-              <label>Password</label>
-              <div className="form-group password-group">
-                
-                <input
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="new-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={isRegistering}
-                />
-                <button
-                  type="button"
-                  onClick={toggleShowPassword}
-                  className="show-password-button"
-                >
-                  {showPassword ? "Hide" : "Show"}
-                </button>
-              </div>
+                <label>Password</label>
+                <div className="form-group password-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="new-password"
+                    required
+                    value={password}
+                    onChange={onPasswordChange}
+                    disabled={isRegistering}
+                    className={passwordValid ? "valid" : "invalid"}
+                  />
+                  <button
+                    type="button"
+                    onClick={toggleShowPassword}
+                    className="show-password-button"
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
+                <div className="password-requirements">
+                  <p className={password.length >= 6 ? "valid" : "invalid"}>
+                    Minimum 6 characters
+                  </p>
+                  <p className={/[A-Z]/.test(password) ? "valid" : "invalid"}>
+                    At least one uppercase letter
+                  </p>
+                  <p
+                    className={
+                      /[!@#$%^&*(),.?":{}|<>]/.test(password)
+                        ? "valid"
+                        : "invalid"
+                    }
+                  >
+                    At least one symbol
+                  </p>
+                </div>
               </div>
               <div className="form-group">
                 <label>Confirm Password</label>
@@ -124,7 +155,7 @@ const Register = () => {
               )}
               <button
                 type="submit"
-                disabled={isRegistering}
+                disabled={isRegistering || !passwordValid}
                 className={`submit-button ${isRegistering ? "disabled" : ""}`}
               >
                 {isRegistering ? "Signing Up..." : "Sign Up"}
