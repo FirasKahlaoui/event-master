@@ -9,7 +9,13 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   updateProfile,
+  getAuth,
 } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "./firebase"; // Adjust the import path as needed
+
+const authInstance = getAuth();
+const provider = new GoogleAuthProvider();
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -20,11 +26,24 @@ export const doSignInWithEmailAndPassword = (email, password) => {
 };
 
 export const doSignInWithGoogle = async () => {
-  const provider = new GoogleAuthProvider();
-  const result = await signInWithPopup(auth, provider);
-  const user = result.user;
+  try {
+    const result = await signInWithPopup(authInstance, provider);
+    const user = result.user;
 
-  // add user to firestore
+    // Check if the user document exists in Firestore
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (!userDoc.exists()) {
+      // Create a new user document with the necessary fields
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        name: user.displayName,
+        joinedEvents: [],
+      });
+    }
+  } catch (error) {
+    console.error("Error signing in with Google:", error);
+    throw error;
+  }
 };
 
 export const doSignOut = () => {
@@ -48,5 +67,3 @@ export const doSendEmailVerification = () => {
 export const updateUserProfile = (user, profile) => {
   return updateProfile(user, profile);
 };
-
-

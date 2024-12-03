@@ -87,6 +87,9 @@ const MyEvents = () => {
 
   const handleDeleteEvent = async (eventId, joinedUsers) => {
     try {
+      console.log("Event ID:", eventId);
+      console.log("Joined Users:", joinedUsers);
+
       // Delete the event from Firestore
       await deleteDoc(doc(db, "events", eventId));
       setCreatedEvents(createdEvents.filter((event) => event.id !== eventId));
