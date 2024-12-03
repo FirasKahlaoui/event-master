@@ -85,13 +85,26 @@ const MyEvents = () => {
     }
   };
 
-  const handleDeleteEvent = async (eventId, eventTitle, joinedUsers) => {
+  const handleDeleteEvent = async (eventId, eventTitle) => {
     try {
+      console.log("Event ID:", eventId);
+
+      // Fetch the event document to get the joinedUsers array
+      const eventDoc = await getDoc(doc(db, "events", eventId));
+      if (!eventDoc.exists()) {
+        console.error("Event document does not exist.");
+        return;
+      }
+
+      const eventData = eventDoc.data();
+      const joinedUsers = eventData.joinedUsers || [];
+      console.log("Joined Users:", joinedUsers);
+
       // Delete the event from Firestore
       await deleteDoc(doc(db, "events", eventId));
       setCreatedEvents(createdEvents.filter((event) => event.id !== eventId));
 
-      // Check if joinedUsers is iterable
+      // Check if joinedUsers is defined and iterable
       if (Array.isArray(joinedUsers) && joinedUsers.length > 0) {
         // Send email notifications to joined users
         for (const userId of joinedUsers) {
