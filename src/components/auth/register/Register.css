@@ -5,17 +5,17 @@ body {
   background-color: #faf4d3;
 }
 
-.register-container {
+.signup-container {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #0c1618;
-  padding: 1rem;
+  padding: 1rem; /* Add padding for smaller screens */
 }
 
-.register-box {
+.signup-box {
   display: flex;
   width: 100%;
   max-width: 42rem;
@@ -25,13 +25,13 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.register-left {
+.signup-left {
   width: 60%;
   padding-right: 1rem;
   border-right: 1px solid rgba(0, 70, 67, 0.5);
 }
 
-.register-header h3 {
+.signup-header h3 {
   color: #d1ac00;
   font-size: 1.5rem;
   font-weight: 700;
@@ -39,24 +39,24 @@ body {
   margin-bottom: 1rem;
 }
 
-.register-form {
+.signup-form {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.form-group {
+.signup-form-group {
   position: relative;
 }
 
-.form-group label {
+.signup-form-group label {
   font-size: 0.875rem;
   color: #004643;
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
-.form-group input {
+.signup-form-group input {
   width: 100%;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
@@ -68,20 +68,28 @@ body {
   transition: border-color 0.2s, background-color 0.2s;
 }
 
-.form-group input:focus {
+.signup-form-group input:focus {
   border-color: #d1ac00;
   background-color: #ffffff;
   box-shadow: 0 0 8px rgba(209, 172, 0, 0.3);
 }
 
-.password-group {
+.signup-form-group input.invalid {
+  border-color: red;
+}
+
+.signup-form-group input.valid {
+  border-color: green;
+}
+
+.signup-password-group {
   display: flex;
   align-items: center;
 }
 
-.show-password-button {
+.signup-show-password-button {
   position: absolute;
-  right: 10px;
+  right: 25px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -90,39 +98,35 @@ body {
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  transition: background-color 0.2s;
 }
 
-.show-password-button:hover {
+.signup-show-password-button:hover {
   color: #0c1618;
-  background-color: rgba(209, 172, 0, 0.1);
 }
 
-.password-requirements {
+.signup-password-requirements {
   margin-top: 10px;
 }
 
-.password-requirements p {
+.signup-password-requirements p {
   margin: 0;
   font-size: 12px;
 }
 
-.password-requirements .valid {
+.signup-password-requirements .valid {
   color: green;
 }
 
-.password-requirements .invalid {
+.signup-password-requirements .invalid {
   color: red;
 }
 
-.error-message {
+.signup-error-message {
   color: red;
   margin-bottom: 10px;
 }
 
-.submit-button {
+.signup-submit-button {
   width: 100%;
   padding: 0.6rem;
   font-size: 1rem;
@@ -136,17 +140,21 @@ body {
   margin-top: 0.75rem;
 }
 
-.submit-button:hover {
+.signup-submit-button:hover {
   background-color: #0c1618;
   transform: translateY(-2px);
 }
 
-.submit-button.disabled {
+.signup-submit-button.disabled {
   background-color: #d1ac00;
   cursor: not-allowed;
 }
 
-.register-right {
+.signup-submit-button:hover:not(.disabled) {
+  background-color: #d1ac00;
+}
+
+.signup-right {
   width: 40%;
   padding-left: 1rem;
   display: flex;
@@ -155,27 +163,27 @@ body {
   align-items: center;
 }
 
-.divider {
+.signup-divider {
   display: flex;
   align-items: center;
   width: 100%;
   margin: 1rem 0;
 }
 
-.divider .line {
+.signup-divider .signup-line {
   flex: 1;
   height: 1px;
   background-color: #004643;
 }
 
-.divider .or {
+.signup-divider .signup-or {
   margin: 0 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
   color: #004643;
 }
 
-.google-button {
+.signup-google-button {
   width: 100%;
   display: flex;
   align-items: center;
@@ -192,95 +200,105 @@ body {
   margin-bottom: 50px;
 }
 
-.google-button:hover {
+.signup-google-button:hover {
   background-color: #f6be9a;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.google-button.disabled {
+.signup-google-button.disabled {
   background-color: #d1ac00;
   cursor: not-allowed;
 }
 
-.login-link {
+.signup-google-button:hover:not(.disabled) {
+  background-color: #357ae8;
+}
+
+.signup-google-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.signup-login-link {
   font-size: 0.875rem;
   color: #004643;
   text-align: center;
 }
 
-.login-link a {
+.signup-login-link a {
   color: #fff;
   text-decoration: none;
 }
 
-.login-link a:hover {
+.signup-login-link a:hover {
   color: #0c1618;
 }
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-  .register-box {
+  .signup-box {
     flex-direction: column;
     align-items: center;
     padding: 1rem;
   }
 
-  .register-left,
-  .register-right {
+  .signup-left,
+  .signup-right {
     width: 100%;
     padding: 0;
     border: none;
   }
 
-  .register-left {
+  .signup-left {
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(0, 70, 67, 0.5);
   }
 
-  .register-right {
+  .signup-right {
     padding-top: 1rem;
   }
 
-  .register-header h3 {
+  .signup-header h3 {
     font-size: 1.25rem;
   }
 
-  .form-group input {
+  .signup-form-group input {
     padding: 0.5rem;
     font-size: 0.875rem;
   }
 
-  .submit-button {
+  .signup-submit-button {
     padding: 0.5rem;
     font-size: 0.875rem;
   }
 
-  .google-button {
+  .signup-google-button {
     padding: 0.5rem;
     font-size: 0.875rem;
   }
 }
 
 @media (max-width: 480px) {
-  .register-box {
+  .signup-box {
     padding: 0.5rem;
   }
 
-  .register-header h3 {
+  .signup-header h3 {
     font-size: 1rem;
   }
 
-  .form-group input {
+  .signup-form-group input {
     padding: 0.5rem;
     font-size: 0.75rem;
   }
 
-  .submit-button {
+  .signup-submit-button {
     padding: 0.5rem;
     font-size: 0.75rem;
   }
 
-  .google-button {
+  .signup-google-button {
     padding: 0.5rem;
     font-size: 0.75rem;
   }

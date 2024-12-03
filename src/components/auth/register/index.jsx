@@ -20,6 +20,7 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
 
   const validatePassword = (password) => {
     const minLength = password.length >= 6;
@@ -32,11 +33,18 @@ const Register = () => {
     const newPassword = e.target.value;
     setPassword(newPassword);
     setPasswordValid(validatePassword(newPassword));
+    setConfirmPasswordValid(newPassword === confirmPassword);
+  };
+
+  const onConfirmPasswordChange = (e) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+    setConfirmPasswordValid(newConfirmPassword === password);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!isRegistering && passwordValid) {
+    if (!isRegistering && passwordValid && confirmPasswordValid) {
       setIsRegistering(true);
       try {
         const userCredential = await doCreateUserWithEmailAndPassword(
@@ -49,6 +57,8 @@ const Register = () => {
         setErrorMessage(error.message);
         setIsRegistering(false);
       }
+    } else {
+      setErrorMessage("Please fill in all required fields correctly.");
     }
   };
 
@@ -74,14 +84,14 @@ const Register = () => {
     <>
       {userLoggedIn && <Navigate to="/home" replace />}
 
-      <main className="register-container">
-        <div className="register-box">
-          <div className="register-left">
-            <div className="register-header">
+      <main className="signup-container">
+        <div className="signup-box">
+          <div className="signup-left">
+            <div className="signup-header">
               <h3>Create a New Account</h3>
             </div>
-            <form onSubmit={onSubmit} className="register-form">
-              <div className="form-group">
+            <form onSubmit={onSubmit} className="signup-form">
+              <div className="signup-form-group">
                 <label>Username</label>
                 <input
                   type="text"
@@ -89,9 +99,10 @@ const Register = () => {
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  className={!username && errorMessage ? "invalid" : ""}
                 />
               </div>
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label>Email</label>
                 <input
                   type="email"
@@ -99,11 +110,12 @@ const Register = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className={!email && errorMessage ? "invalid" : ""}
                 />
               </div>
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label>Password</label>
-                <div className="form-group password-group">
+                <div className="signup-form-group signup-password-group">
                   <input
                     type={showPassword ? "text" : "password"}
                     autoComplete="new-password"
@@ -116,12 +128,12 @@ const Register = () => {
                   <button
                     type="button"
                     onClick={toggleShowPassword}
-                    className="show-password-button"
+                    className="signup-show-password-button"
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
-                <div className="password-requirements">
+                <div className="signup-password-requirements">
                   <p className={password.length >= 6 ? "valid" : "invalid"}>
                     Minimum 6 characters
                   </p>
@@ -139,42 +151,43 @@ const Register = () => {
                   </p>
                 </div>
               </div>
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label>Confirm Password</label>
                 <input
                   type={showPassword ? "text" : "password"}
                   autoComplete="off"
                   required
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={onConfirmPasswordChange}
                   disabled={isRegistering}
+                  className={confirmPasswordValid ? "valid" : "invalid"}
                 />
               </div>
               {errorMessage && (
-                <span className="error-message">{errorMessage}</span>
+                <span className="signup-error-message">{errorMessage}</span>
               )}
               <button
                 type="submit"
-                disabled={isRegistering || !passwordValid}
-                className={`submit-button ${isRegistering ? "disabled" : ""}`}
+                disabled={isRegistering || !passwordValid || !confirmPasswordValid}
+                className={`signup-submit-button ${isRegistering ? "disabled" : ""}`}
               >
                 {isRegistering ? "Signing Up..." : "Sign Up"}
               </button>
             </form>
           </div>
-          <div className="register-right">
-            <div className="divider">
-              <div className="line"></div>
-              <div className="or">OR</div>
-              <div className="line"></div>
+          <div className="signup-right">
+            <div className="signup-divider">
+              <div className="signup-line"></div>
+              <div className="signup-or">OR</div>
+              <div className="signup-line"></div>
             </div>
             <button
               disabled={isRegistering}
               onClick={onGoogleSignUp}
-              className={`google-button ${isRegistering ? "disabled" : ""}`}
+              className={`signup-google-button ${isRegistering ? "disabled" : ""}`}
             >
               <svg
-                className="google-icon"
+                className="signup-google-icon"
                 viewBox="0 0 48 48"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +211,7 @@ const Register = () => {
               </svg>
               {isRegistering ? "Signing Up..." : "Continue with Google"}
             </button>
-            <div className="login-link">
+            <div className="signup-login-link">
               Already have an account? <Link to="/login">Continue</Link>
             </div>
           </div>
