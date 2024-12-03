@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
 import "./EventsDetails.css";
@@ -189,23 +182,23 @@ const EventsDetails = () => {
   return (
     <div>
       <Navbar />
-      <div className="event-details-page">
-        <div className="event-details-left">
+      <div className="edetails-event-details-page">
+        <div className="edetails-event-details-left">
           <h2>{event.title}</h2>
-          <img src={event.image} alt={event.title} className="event-image" />
+          <img src={event.image} alt={event.title} className="edetails-event-image" />
           <p>{event.description}</p>
           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
           <p>Location: {event.location}</p>
-          <div className="event-topics">
+          <div className="edetails-event-topics">
             {event.topics.map((topic, index) => (
-              <span key={index} className="event-topic">
+              <span key={index} className="edetails-event-topic">
                 {topic}
               </span>
             ))}
           </div>
           <p>Joined Users: {joinedUsersCount}</p>
         </div>
-        <div className="event-details-right">
+        <div className="edetails-event-details-right">
           <button onClick={handleJoinEvent} disabled={isJoining || isJoined}>
             {isJoining ? "Joining..." : isJoined ? "Joined" : "Join Event"}
           </button>
@@ -218,7 +211,7 @@ const EventsDetails = () => {
               View My Events
             </button>
           )}
-          <div className="comments-section">
+          <div className="edetails-comments-section">
             <h3>Comments ({comments.length})</h3>
             <input
               type="text"

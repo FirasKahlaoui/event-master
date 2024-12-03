@@ -1,11 +1,11 @@
-.event-details-page {
+.edetails-event-details-page {
   display: flex;
   gap: 20px;
   padding: 20px;
   background-color: #faf4d3;
 }
 
-.event-details-left {
+.edetails-event-details-left {
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.event-details-right {
+.edetails-event-details-right {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.event-image {
+.edetails-event-image {
   width: 100%;
   max-width: 600px;
   height: auto;
@@ -33,11 +33,11 @@
   border-radius: 10px;
 }
 
-.event-topics {
+.edetails-event-topics {
   margin-bottom: 20px;
 }
 
-.event-topic {
+.edetails-event-topic {
   display: inline-block;
   background-color: #004643;
   color: #faf4d3;
@@ -62,11 +62,11 @@ button:hover {
   background-color: #f6be9a;
 }
 
-.comments-section {
+.edetails-comments-section {
   margin-top: 20px;
 }
 
-.comments-section input {
+.edetails-comments-section input {
   width: calc(100% - 120px);
   padding: 10px;
   margin-right: 10px;
@@ -74,7 +74,7 @@ button:hover {
   border-radius: 5px;
 }
 
-.comments-section button {
+.edetails-comments-section button {
   padding: 10px 20px;
   background-color: #004643;
   color: #faf4d3;
@@ -84,16 +84,16 @@ button:hover {
   transition: background-color 0.2s ease;
 }
 
-.comments-section button:hover {
+.edetails-comments-section button:hover {
   background-color: #d1ac00;
 }
 
-.comments-section ul {
+.edetails-comments-section ul {
   list-style: none;
   padding: 0;
 }
 
-.comments-section li {
+.edetails-comments-section li {
   margin-bottom: 15px;
   padding: 10px;
   border: 1px solid #d1ac00;
@@ -101,7 +101,7 @@ button:hover {
   background: #fefcf6;
 }
 
-.comments-section li button {
+.edetails-comments-section li button {
   margin-top: 10px;
   padding: 5px 15px;
   font-size: 14px;
@@ -109,35 +109,35 @@ button:hover {
   color: #faf4d3;
 }
 
-.comments-section li button:hover {
+.edetails-comments-section li button:hover {
   background: #f6be9a;
 }
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-  .event-details-page {
+  .edetails-event-details-page {
     flex-direction: column;
   }
 
-  .event-details-left,
-  .event-details-right {
+  .edetails-event-details-left,
+  .edetails-event-details-right {
     min-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .event-details-left h2,
-  .event-details-right h3 {
+  .edetails-event-details-left h2,
+  .edetails-event-details-right h3 {
     font-size: 20px;
   }
 
-  .event-details-left p,
-  .event-details-right button,
-  .comments-section input {
+  .edetails-event-details-left p,
+  .edetails-event-details-right button,
+  .edetails-comments-section input {
     font-size: 14px;
   }
 
-  .comments-section li {
+  .edetails-comments-section li {
     font-size: 12px;
   }
 }
