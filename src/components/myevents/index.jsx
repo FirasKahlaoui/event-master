@@ -85,11 +85,8 @@ const MyEvents = () => {
     }
   };
 
-  const handleDeleteEvent = async (eventId, joinedUsers) => {
+  const handleDeleteEvent = async (eventId, eventTitle, joinedUsers) => {
     try {
-      console.log("Event ID:", eventId);
-      console.log("Joined Users:", joinedUsers);
-
       // Delete the event from Firestore
       await deleteDoc(doc(db, "events", eventId));
       setCreatedEvents(createdEvents.filter((event) => event.id !== eventId));
@@ -107,7 +104,7 @@ const MyEvents = () => {
             if (userEmail) {
               const templateParams = {
                 to_email: userEmail,
-                message: "The event you joined has been removed.",
+                message: `The event: ${eventTitle} you joined has been canceled.`,
               };
 
               // Print all the variables
