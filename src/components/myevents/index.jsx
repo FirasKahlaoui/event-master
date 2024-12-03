@@ -137,6 +137,12 @@ const MyEvents = () => {
             console.error(`User document for userId ${userId} does not exist.`);
           }
         }
+
+        // Remove the event ID from each user's joinedEvents array
+        for (const userId of joinedUsers) {
+          const userRef = doc(db, "users", userId);
+          await updateDoc(userRef, { joinedEvents: arrayRemove(eventId) });
+        }
       } else {
         console.log(
           "No users joined the event or joinedUsers is not iterable."
