@@ -17,26 +17,26 @@ const EventList = ({ events }) => {
   };
 
   return (
-    <section className="event-list">
+    <section className="elist-event-list">
       <h2>Upcoming Events</h2>
-      <div className="event-list-container">
+      <div className="elist-event-list-container">
         {events.length > 0 ? (
           events.map((event) => (
-            <div className="event-item" key={event.id}>
+            <div className="elist-event-item" key={event.id}>
               <img
                 src={event.image || "/assets/default-event.jpg"}
                 alt={event.title}
-                className="event-thumbnail"
+                className="elist-event-thumbnail"
               />
-              <div className="event-details">
+              <div className="elist-event-details">
                 <h3>{event.title}</h3>
                 <p>{event.shortDescription}</p>
-                <p className="event-date">
+                <p className="elist-event-date">
                   {new Date(event.date).toLocaleDateString()}
                 </p>
                 <button
                   onClick={() => handleViewDetails(event.id)}
-                  className="event-link"
+                  className="elist-event-link"
                 >
                   View Details
                 </button>
