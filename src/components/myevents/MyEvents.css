@@ -60,26 +60,38 @@
 }
 
 .manage-button,
-.cancel-button,
 .delete-button {
-  padding: 10px 20px;
+  padding: 10px 10px; /* Adjust padding for manage and delete buttons */
+  font-size: 14px; /* Smaller font size for manage and delete buttons */
   background-color: #004643;
   color: #faf4d3;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-  margin-right: 10px;
+  width: 80px; /* Set a fixed width for the buttons */
 }
 
 .cancel-button {
+  padding: 10px 20px; /* Increase padding for cancel button */
+  font-size: 14px;
   background-color: #d9534f; /* Red color for cancel button */
+  color: #faf4d3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .manage-button:hover,
 .cancel-button:hover,
 .delete-button:hover {
   background-color: #d1ac00;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Add spacing between buttons */
 }
 
 /* Media Queries for Responsiveness */

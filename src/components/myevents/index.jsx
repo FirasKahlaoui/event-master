@@ -194,7 +194,7 @@ const MyEvents = () => {
                   />
                   <div className="event-details">
                     <h3>{event.title}</h3>
-                    <p>{event.description}</p>
+                    <p>{event.shortDescription}</p>
                     <p>{new Date(event.date).toLocaleDateString()}</p>
                     <button
                       onClick={() => handleManageEvent(event.id)}
