@@ -196,20 +196,22 @@ const MyEvents = () => {
                     <h3>{event.title}</h3>
                     <p>{event.shortDescription}</p>
                     <p>{new Date(event.date).toLocaleDateString()}</p>
-                    <button
-                      onClick={() => handleManageEvent(event.id)}
-                      className="manage-button"
-                    >
-                      Manage
-                    </button>
-                    <button
-                      onClick={() =>
-                        handleDeleteEvent(event.id, event.joinedUsers)
-                      }
-                      className="delete-button"
-                    >
-                      Delete
-                    </button>
+                    <div className="button-group">
+                      <button
+                        onClick={() => handleManageEvent(event.id)}
+                        className="manage-button"
+                      >
+                        Manage
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleDeleteEvent(event.id, event.joinedUsers)
+                        }
+                        className="delete-button"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))
@@ -231,12 +233,14 @@ const MyEvents = () => {
                     <h3>{event.title}</h3>
                     <p>{event.description}</p>
                     <p>{new Date(event.date).toLocaleDateString()}</p>
-                    <button
-                      onClick={() => handleCancelJoin(event.id)}
-                      className="cancel-button"
-                    >
-                      Cancel Join
-                    </button>
+                    <div className="button-group">
+                      <button
+                        onClick={() => handleCancelJoin(event.id)}
+                        className="cancel-button"
+                      >
+                        Cancel Join
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))

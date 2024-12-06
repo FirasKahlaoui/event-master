@@ -1,6 +1,7 @@
 .myevents-container {
   padding: 20px;
   background-color: #faf4d3;
+  border-radius: 10px;
 }
 
 .myevents-header {
@@ -11,13 +12,14 @@
 }
 
 .create-event-button {
-  padding: 10px 20px;
+  padding: 8px 16px;
   background-color: #d1ac00;
   color: #faf4d3;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  font-size: 14px;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .create-event-button:hover {
@@ -40,73 +42,80 @@
 
 .event-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .event-image {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 10px;
-  margin-right: 20px;
 }
 
 .event-details {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Add spacing between event details */
+  gap: 10px;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .manage-button,
-.delete-button {
-  padding: 10px 10px; /* Adjust padding for manage and delete buttons */
-  font-size: 14px; /* Smaller font size for manage and delete buttons */
+.delete-button,
+.cancel-button {
+  padding: 6px 10px;
+  font-size: 12px;
   background-color: #004643;
   color: #faf4d3;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-  width: 80px; /* Set a fixed width for the buttons */
+  flex: 0 0 auto; /* Prevent buttons from stretching */
+  text-align: center;
+}
+
+.manage-button {
+  background-color: #004643;
+}
+
+.delete-button {
+  background-color: #d9534f;
 }
 
 .cancel-button {
-  padding: 10px 20px; /* Increase padding for cancel button */
-  font-size: 14px;
-  background-color: #d9534f; /* Red color for cancel button */
-  color: #faf4d3;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  background-color: #d9534f;
 }
 
 .manage-button:hover,
-.cancel-button:hover,
-.delete-button:hover {
+.delete-button:hover,
+.cancel-button:hover {
   background-color: #d1ac00;
 }
 
-.button-group {
-  display: flex;
-  gap: 10px; /* Add spacing between buttons */
-}
-
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .myevents-content {
     flex-direction: column;
   }
-}
 
-@media (max-width: 480px) {
   .event-item {
     flex-direction: column;
     align-items: flex-start;
   }
 
+  .button-group {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
   .event-image {
     width: 100%;
     height: auto;
@@ -114,8 +123,8 @@
   }
 
   .manage-button,
-  .cancel-button,
-  .delete-button {
-    width: 100%;
+  .delete-button,
+  .cancel-button {
+    width: 100%; /* Full-width buttons on small screens */
   }
 }
