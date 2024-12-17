@@ -25,6 +25,7 @@ yarn-error.log*
 # src/firebase.js
 src/firebase/admin.js
 src/firebase/serviceAccountKey.json
+src/firebase/insertAdmin.js
 
 
 .env
