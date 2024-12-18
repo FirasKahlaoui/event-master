@@ -11,7 +11,8 @@ module.exports = function override(config) {
     crypto: require.resolve("crypto-browserify"),
     path: require.resolve("path-browserify"),
     os: require.resolve("os-browserify/browser"),
-    fs: false, // fs is not available in the browser
+    fs: false,
+    vm: require.resolve("vm-browserify"),
   };
 
   config.plugins.push(
