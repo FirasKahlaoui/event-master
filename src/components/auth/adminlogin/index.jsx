@@ -19,11 +19,16 @@ const AdminLogin = () => {
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (currentUser) {
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-        console.log("User doc exists:", userDoc.exists());
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          setIsAdmin(userData.role === "admin");
+        try {
+          // Fetch admin document by UID
+          const adminDoc = await getDoc(doc(db, "admin", currentUser.uid));
+          if (adminDoc.exists() && adminDoc.data().role === "admin") {
+            setIsAdmin(true);
+          } else {
+            console.error("User is not an admin or role is invalid.");
+          }
+        } catch (error) {
+          console.error("Error checking admin status:", error);
         }
       }
       setLoading(false);
@@ -41,29 +46,21 @@ const AdminLogin = () => {
           password
         );
         const user = userCredential.user;
-        console.log("User signed in:", user);
 
-        // Check if the user is an admin
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        console.log("User doc exists after sign in:", userDoc.exists());
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          if (userData.role === "admin") {
-            setCurrentUser(user);
-            setIsAdmin(true);
-            navigate("/admin-dashboard");
-          } else {
-            setErrorMessage(
-              "You are not authorized to access the admin dashboard."
-            );
-            setIsSigningIn(false);
-          }
+        // Fetch admin document to verify role
+        const adminDoc = await getDoc(doc(db, "admin", user.uid));
+        if (adminDoc.exists() && adminDoc.data().role === "admin") {
+          setCurrentUser(user);
+          setIsAdmin(true);
+          navigate("/admin-dashboard");
         } else {
-          setErrorMessage("User document does not exist.");
-          setIsSigningIn(false);
+          setErrorMessage(
+            "You are not authorized to access the admin dashboard."
+          );
         }
       } catch (error) {
-        setErrorMessage(error.message);
+        setErrorMessage("Error signing in: " + error.message);
+      } finally {
         setIsSigningIn(false);
       }
     }
@@ -72,9 +69,6 @@ const AdminLogin = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  console.log("Current user:", currentUser);
-  console.log("Is admin:", isAdmin);
 
   if (currentUser && isAdmin) {
     return <Navigate to="/admin-dashboard" replace />;
