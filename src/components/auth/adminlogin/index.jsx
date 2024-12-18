@@ -22,14 +22,7 @@ const AdminLogin = () => {
         try {
           const adminDoc = await getDoc(doc(db, "admin", currentUser.uid));
           if (adminDoc.exists()) {
-            const adminData = adminDoc.data();
-            console.log("Admin document data:", adminData);
-
-            if (adminData.role === "admin") {
-              setIsAdmin(true);
-            } else {
-              console.error("Role is not 'admin'. Role found:", adminData.role);
-            }
+            setIsAdmin(true);
           } else {
             console.error("Admin document does not exist.");
           }
@@ -39,6 +32,7 @@ const AdminLogin = () => {
       }
       setLoading(false);
     };
+
     checkAdminStatus();
   }, [currentUser]);
 
@@ -54,22 +48,14 @@ const AdminLogin = () => {
         const user = userCredential.user;
         console.log("User signed in:", user);
 
-        // Check if the user is an admin
+        // Set current user
+        setCurrentUser(user);
+
+        // Check if the user is in the admin collection
         const adminDoc = await getDoc(doc(db, "admin", user.uid));
         if (adminDoc.exists()) {
-          const adminData = adminDoc.data();
-          console.log("Admin document data after sign in:", adminData);
-
-          if (adminData.role === "admin") {
-            setCurrentUser(user);
-            setIsAdmin(true);
-            navigate("/admin-dashboard");
-          } else {
-            console.error("Role is not 'admin'. Role found:", adminData.role);
-            setErrorMessage(
-              "You are not authorized to access the admin dashboard."
-            );
-          }
+          setIsAdmin(true);
+          navigate("/admin-dashboard");
         } else {
           console.error("Admin document does not exist.");
           setErrorMessage(
