@@ -13,78 +13,73 @@ const AdminLogin = () => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      if (currentUser) {
-        try {
-          const adminDoc = await getDoc(doc(db, "admin", currentUser.uid));
-          if (adminDoc.exists()) {
-            setIsAdmin(true);
-          } else {
-            console.error("Admin document does not exist.");
-          }
-        } catch (error) {
-          console.error("Error checking admin status:", error);
-        }
+  const checkAdminStatus = async (user) => {
+    try {
+      const adminDoc = await getDoc(doc(db, "admin", user.uid));
+      if (adminDoc.exists()) {
+        setIsAdmin(true);
+      } else {
+        setErrorMessage(
+          "You are not authorized to access the admin dashboard."
+        );
+        setIsAdmin(false);
       }
-      setLoading(false);
-    };
-
-    checkAdminStatus();
-  }, [currentUser]);
+    } catch (error) {
+      console.error("Error checking admin status:", error);
+    }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
+      setLoading(true);
       try {
         const userCredential = await doSignInWithEmailAndPassword(
           email,
           password
         );
         const user = userCredential.user;
-        console.log("User signed in:", user);
 
-        // Set current user
         setCurrentUser(user);
+        await checkAdminStatus(user);
 
-        // Check if the user is in the admin collection
-        const adminDoc = await getDoc(doc(db, "admin", user.uid));
-        if (adminDoc.exists()) {
-          setIsAdmin(true);
+        if (isAdmin) {
           navigate("/admin-dashboard");
-        } else {
-          console.error("Admin document does not exist.");
-          setErrorMessage(
-            "You are not authorized to access the admin dashboard."
-          );
         }
       } catch (error) {
         console.error("Error during sign in:", error);
         setErrorMessage(error.message);
       } finally {
         setIsSigningIn(false);
+        setLoading(false);
       }
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      setLoading(true);
+      checkAdminStatus(currentUser).finally(() => setLoading(false));
+    }
+  }, [currentUser]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  console.log("Current user:", currentUser);
-  console.log("Is admin:", isAdmin);
-
-  if (currentUser && isAdmin) {
-    return <Navigate to="/admin-dashboard" replace />;
+  if (currentUser) {
+    if (isAdmin) {
+      return <Navigate to="/admin-dashboard" replace />;
+    }
+    return <Navigate to="/home" replace />;
   }
 
   return (
     <div>
-      {currentUser && !isAdmin && <Navigate to="/home" replace />}
       <main className="admin-login-container">
         <div className="admin-login-box">
           <div className="admin-login-header">
