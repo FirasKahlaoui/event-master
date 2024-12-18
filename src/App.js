@@ -14,6 +14,7 @@ import Explore from "./components/explore";
 import Profile from "./components/profile";
 import AdminDashboard from "./components/admindashboard";
 import TwoFactorSetup from "./components/auth/TwoFactorSetup";
+import ProtectedRoute from "./components/auth/ProtectedRoute"; // Import the ProtectedRoute component
 
 const App = () => {
   return (
@@ -31,7 +32,14 @@ const App = () => {
           <Route path="/manage-event/:id" element={<ManageEvent />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route
+            path="/admin-dashboard"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/two-factor-setup" element={<TwoFactorSetup />} />
           <Route path="/" element={<Home />} />
         </Routes>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword } from "../../../firebase/auth";
 import { useAuth } from "../../../contexts/authContext";
@@ -7,12 +7,23 @@ import { doc, getDoc } from "firebase/firestore";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
-  const { userLoggedIn, setCurrentUser } = useAuth();
+  const { currentUser, setCurrentUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (currentUser) {
+        const adminDoc = await getDoc(doc(db, "admin", currentUser.uid));
+        setIsAdmin(adminDoc.exists());
+      }
+    };
+    checkAdminStatus();
+  }, [currentUser]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -43,9 +54,13 @@ const AdminLogin = () => {
     }
   };
 
+  if (currentUser && isAdmin) {
+    return <Navigate to="/admin-dashboard" replace />;
+  }
+
   return (
     <div>
-      {userLoggedIn && <Navigate to="/home" replace />}
+      {currentUser && !isAdmin && <Navigate to="/home" replace />}
       <main className="admin-login-container">
         <div className="admin-login-box">
           <div className="admin-login-header">
