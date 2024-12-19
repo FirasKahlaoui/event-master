@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
 const ProtectedRoute = ({ children }) => {
@@ -12,9 +12,13 @@ const ProtectedRoute = ({ children }) => {
   const checkAdminStatus = useCallback(async () => {
     try {
       if (currentUser) {
-        const adminDoc = await getDoc(doc(db, "admin", currentUser.uid));
-        console.log("Admin doc exists:", adminDoc.exists()); // Debugging statement
-        setIsAdmin(adminDoc.exists());
+        const q = query(
+          collection(db, "admin"),
+          where("email", "==", currentUser.email)
+        );
+        const querySnapshot = await getDocs(q);
+        console.log("Admin doc exists:", !querySnapshot.empty); // Debugging statement
+        setIsAdmin(!querySnapshot.empty);
       }
     } catch (error) {
       console.error("Error checking admin status:", error);
@@ -37,8 +41,10 @@ const ProtectedRoute = ({ children }) => {
   if (!currentUser) {
     return <Navigate to="/admin-login" replace />;
   }
-
-  if (!isAdmin) {
+  if (currentUser && isAdmin) {
+    return <Navigate to="/admin-dashboard" replace />;
+  }
+  if (currentUser && !isAdmin) {
     return <Navigate to="/home" replace />;
   }
 

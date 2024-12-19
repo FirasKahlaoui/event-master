@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { doSignInWithEmailAndPassword } from "../../../firebase/auth";
 import { useAuth } from "../../../contexts/authContext";
 import { db } from "../../../firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
-  const { currentUser, setCurrentUser } = useAuth();
+  const { setCurrentUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -16,69 +15,52 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const checkAdminStatus = async (user) => {
-    try {
-      const adminDoc = await getDoc(doc(db, "admin", user.uid));
-      if (adminDoc.exists()) {
-        setIsAdmin(true);
-      } else {
-        setErrorMessage(
-          "You are not authorized to access the admin dashboard."
-        );
-        setIsAdmin(false);
-      }
-    } catch (error) {
-      console.error("Error checking admin status:", error);
-    }
-  };
-
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
       setLoading(true);
       try {
-        const userCredential = await doSignInWithEmailAndPassword(
-          email,
-          password
+        const q = query(
+          collection(db, "admin"),
+          where("email", "==", email),
+          where("password", "==", password)
         );
-        const user = userCredential.user;
+        const querySnapshot = await getDocs(q);
 
-        setCurrentUser(user);
-        await checkAdminStatus(user);
+        if (!querySnapshot.empty) {
+          const adminDoc = querySnapshot.docs[0];
+          const adminData = adminDoc.data();
 
-        console.log("isAdmin:", isAdmin); // Print the value of isAdmin
+          setCurrentUser({
+            uid: adminData.uid,
+            email: adminData.email,
+            role: adminData.role,
+          });
 
-        // Navigate to the admin dashboard if the user is an admin
-        if (isAdmin) {
+          // Always set isAdmin to true
+          setIsAdmin(true);
           navigate("/admin-dashboard");
+        } else {
+          setErrorMessage("Invalid email or password.");
+          setIsSigningIn(false);
         }
       } catch (error) {
         console.error("Error during sign in:", error);
         setErrorMessage(error.message);
-      } finally {
         setIsSigningIn(false);
+      } finally {
         setLoading(false);
       }
     }
   };
 
-  useEffect(() => {
-    if (currentUser) {
-      setLoading(true);
-      checkAdminStatus(currentUser).finally(() => setLoading(false));
-    }
-  }, [currentUser]);
-
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (currentUser) {
-    if (isAdmin) {
-      return <Navigate to="/admin-dashboard" replace />;
-    }
-    return <Navigate to="/home" replace />;
+  if (isAdmin) {
+    return <Navigate to="/admin-dashboard" replace />;
   }
 
   return (
