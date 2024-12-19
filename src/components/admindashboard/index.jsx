@@ -7,7 +7,7 @@ import AdminNavbar from "../adminnavbar";
 import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
-  const { currentUser } = useAuth();
+  const { currentAdmin } = useAuth();
   const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,8 +36,8 @@ const AdminDashboard = () => {
     return <div>Loading...</div>;
   }
 
-  if (!currentUser) {
-    return <Navigate to="/login" replace />;
+  if (!currentAdmin) {
+    return <Navigate to="/admin-login" replace />;
   }
 
   return (
