@@ -5,7 +5,7 @@ import {
   collection,
   query,
   where,
-  getDocs,
+  onSnapshot,
   getDoc,
   doc,
   deleteDoc,
@@ -24,23 +24,26 @@ const MyEvents = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        // Fetch events created by the user
-        const createdEventsQuery = query(
-          collection(db, "events"),
-          where("creatorId", "==", currentUser.uid)
-        );
-        const createdEventsSnapshot = await getDocs(createdEventsQuery);
+    const fetchCreatedEvents = () => {
+      const createdEventsQuery = query(
+        collection(db, "events"),
+        where("creatorId", "==", currentUser.uid)
+      );
+      const unsubscribeCreatedEvents = onSnapshot(createdEventsQuery, (snapshot) => {
         setCreatedEvents(
-          createdEventsSnapshot.docs.map((doc) => ({
+          snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }))
         );
+      });
 
-        // Fetch events joined by the user
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+      return unsubscribeCreatedEvents;
+    };
+
+    const fetchJoinedEvents = () => {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      const unsubscribeUserDoc = onSnapshot(userDocRef, (userDoc) => {
         if (userDoc.exists()) {
           const joinedEventIds = userDoc.data().joinedEvents || [];
           if (joinedEventIds.length > 0) {
@@ -48,21 +51,31 @@ const MyEvents = () => {
               collection(db, "events"),
               where("__name__", "in", joinedEventIds)
             );
-            const joinedEventsSnapshot = await getDocs(joinedEventsQuery);
-            setJoinedEvents(
-              joinedEventsSnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-              }))
-            );
+            const unsubscribeJoinedEvents = onSnapshot(joinedEventsQuery, (snapshot) => {
+              setJoinedEvents(
+                snapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                }))
+              );
+            });
+
+            return unsubscribeJoinedEvents;
           }
         }
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
+      });
+
+      return unsubscribeUserDoc;
     };
 
-    fetchEvents();
+    const unsubscribeCreatedEvents = fetchCreatedEvents();
+    const unsubscribeJoinedEvents = fetchJoinedEvents();
+
+    // Cleanup the listeners on unmount
+    return () => {
+      unsubscribeCreatedEvents();
+      unsubscribeJoinedEvents();
+    };
   }, [currentUser.uid]);
 
   const handleCreateEvent = () => {
@@ -171,6 +184,7 @@ const MyEvents = () => {
       console.error("Error deleting event:", error);
     }
   };
+
   return (
     <div>
       <Navbar />
@@ -205,7 +219,7 @@ const MyEvents = () => {
                       </button>
                       <button
                         onClick={() =>
-                          handleDeleteEvent(event.id, event.joinedUsers)
+                          handleDeleteEvent(event.id, event.title)
                         }
                         className="delete-button"
                       >
