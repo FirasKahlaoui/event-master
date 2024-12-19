@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
-import Navbar from "../navbar";
+import AdminNavbar from "../adminnavbar";
 import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
       <div className="admin-dashboard-container">
         <h1>Admin Dashboard</h1>
         <div className="kpi-container">
