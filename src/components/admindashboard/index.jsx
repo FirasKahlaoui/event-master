@@ -5,7 +5,17 @@ import { db } from "../../firebase/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import AdminNavbar from "../adminnavbar";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+} from "recharts";
 import "./AdminDashboard.css";
 
 const topicsList = [
@@ -41,10 +51,36 @@ const topicsList = [
 ];
 
 const COLORS = [
-  "#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF", "#FF4560", "#00E396", "#775DD0",
-  "#FEB019", "#FF4560", "#775DD0", "#00E396", "#008FFB", "#FEB019", "#FF4560", "#775DD0",
-  "#00E396", "#008FFB", "#FEB019", "#FF4560", "#775DD0", "#00E396", "#008FFB", "#FEB019",
-  "#FF4560", "#775DD0", "#00E396", "#008FFB", "#FEB019", "#FF4560"
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#AF19FF",
+  "#FF4560",
+  "#00E396",
+  "#775DD0",
+  "#FEB019",
+  "#FF4560",
+  "#775DD0",
+  "#00E396",
+  "#008FFB",
+  "#FEB019",
+  "#FF4560",
+  "#775DD0",
+  "#00E396",
+  "#008FFB",
+  "#FEB019",
+  "#FF4560",
+  "#775DD0",
+  "#00E396",
+  "#008FFB",
+  "#FEB019",
+  "#FF4560",
+  "#775DD0",
+  "#00E396",
+  "#008FFB",
+  "#FEB019",
+  "#FF4560",
 ];
 
 const AdminDashboard = () => {
@@ -53,6 +89,8 @@ const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [topicData, setTopicData] = useState([]);
+  const [mostJoinedEvents, setMostJoinedEvents] = useState([]);
+  const [mostLikedEvents, setMostLikedEvents] = useState([]);
 
   useEffect(() => {
     const eventsCollection = collection(db, "events");
@@ -63,8 +101,8 @@ const AdminDashboard = () => {
 
       // Calculate topic data for the pie chart
       const topicCount = {};
-      eventsList.forEach(event => {
-        event.topics.forEach(topic => {
+      eventsList.forEach((event) => {
+        event.topics.forEach((topic) => {
           if (topicCount[topic]) {
             topicCount[topic]++;
           } else {
@@ -73,12 +111,36 @@ const AdminDashboard = () => {
         });
       });
 
-      const topicDataArray = Object.keys(topicCount).map(topic => ({
+      const topicDataArray = Object.keys(topicCount).map((topic) => ({
         name: topic,
-        value: topicCount[topic]
+        value: topicCount[topic],
       }));
 
       setTopicData(topicDataArray);
+
+      // Calculate most joined events
+      const joinedEvents = [...eventsList]
+        .filter((event) => event.joinedUsers && event.joinedUsers.length)
+        .sort((a, b) => b.joinedUsers.length - a.joinedUsers.length)
+        .slice(0, 5)
+        .map((event) => ({
+          name: event.title,
+          value: event.joinedUsers.length,
+        }));
+
+      setMostJoinedEvents(joinedEvents);
+
+      // Calculate most liked events
+      const likedEvents = [...eventsList]
+        .filter((event) => event.likes !== undefined)
+        .sort((a, b) => b.likes - a.likes)
+        .slice(0, 5)
+        .map((event) => ({
+          name: event.title,
+          value: event.likes,
+        }));
+
+      setMostLikedEvents(likedEvents);
     });
 
     const usersCollection = collection(db, "users");
@@ -119,23 +181,48 @@ const AdminDashboard = () => {
         </div>
         <div className="chart-container">
           <h2>Event Topics Distribution</h2>
-          <PieChart width={400} height={400}>
+          <PieChart width={800} height={500}>
             <Pie
               data={topicData}
               cx={200}
               cy={200}
               labelLine={false}
-              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+              label={({ name, percent }) =>
+                `${name}: ${(percent * 100).toFixed(0)}%`
+              }
               outerRadius={150}
               fill="#8884d8"
               dataKey="value"
             >
               {topicData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Pie>
             <Tooltip />
           </PieChart>
+        </div>
+        <div className="chart-container">
+          <h2>Top 5 Most Joined Events</h2>
+          <BarChart width={600} height={300} data={mostJoinedEvents}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="value" fill="#8884d8" />
+          </BarChart>
+        </div>
+        <div className="chart-container">
+          <h2>Top 5 Most Liked Events</h2>
+          <BarChart width={600} height={300} data={mostLikedEvents}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="value" fill="#82ca9d" />
+          </BarChart>
         </div>
       </div>
     </div>
