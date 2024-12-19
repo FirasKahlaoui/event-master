@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import AdminNavbar from "../adminnavbar";
 import "./AdminEvents.css";
@@ -9,16 +9,14 @@ const AdminEvents = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      const eventsCollection = collection(db, "events");
-      const eventsSnapshot = await getDocs(eventsCollection);
-      setEvents(
-        eventsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-      );
+    const eventsCollection = collection(db, "events");
+    const unsubscribe = onSnapshot(eventsCollection, (snapshot) => {
+      setEvents(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       setLoading(false);
-    };
+    });
 
-    fetchEvents();
+    // Cleanup the listener on unmount
+    return () => unsubscribe();
   }, []);
 
   const handleDelete = async (eventId) => {
