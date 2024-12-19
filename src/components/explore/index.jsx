@@ -16,10 +16,13 @@ const Explore = () => {
   useEffect(() => {
     const eventsCollection = collection(db, "events");
     const unsubscribe = onSnapshot(eventsCollection, (snapshot) => {
-      const eventsList = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const currentDate = new Date();
+      const eventsList = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .filter((event) => new Date(event.date) >= currentDate);
       setEvents(eventsList);
     });
 
