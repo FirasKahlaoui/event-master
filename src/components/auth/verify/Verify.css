@@ -1,0 +1,73 @@
+.verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
+
+.verify-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.verify-box h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #004643;
+}
+
+.verify-box p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #0c1618;
+}
+
+.verify-form .form-group {
+  margin-bottom: 15px;
+}
+
+.verify-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #0c1618;
+}
+
+.verify-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #004643;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #0c1618;
+  background-color: #ffffff;
+}
+
+.verify-form input:focus {
+  border-color: #d1ac00;
+  background-color: #ffffff;
+}
+
+.verify-form .error-message {
+  display: block;
+  margin-bottom: 15px;
+  color: #d9534f;
+}
+
+.verify-form .submit-button {
+  padding: 10px 20px;
+  background-color: #004643;
+  color: #faf4d3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.verify-form .submit-button:hover {
+  background-color: #0c1618;
+}
