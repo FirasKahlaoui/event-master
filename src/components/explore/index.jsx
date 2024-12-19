@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, onSnapshot, doc, getDoc } from "firebase/firestore";
 import Navbar from "../navbar";
 import { useAuth } from "../../contexts/authContext";
 import "./Explore.css";
@@ -14,18 +14,17 @@ const Explore = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const eventsCollection = collection(db, "events");
-        const eventsSnapshot = await getDocs(eventsCollection);
-        const eventsList = eventsSnapshot.docs.map((doc) => ({
+    const fetchEvents = () => {
+      const eventsCollection = collection(db, "events");
+      const unsubscribe = onSnapshot(eventsCollection, (snapshot) => {
+        const eventsList = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setEvents(eventsList);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
+      });
+
+      return unsubscribe;
     };
 
     const fetchUserTopics = async () => {
@@ -33,8 +32,8 @@ const Explore = () => {
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         if (userDoc.exists()) {
           const userTopics = userDoc.data().topics || [];
-          const recommended = events.filter(event =>
-            event.topics.some(topic => userTopics.includes(topic))
+          const recommended = events.filter((event) =>
+            event.topics.some((topic) => userTopics.includes(topic))
           );
           setRecommendedEvents(recommended);
         }
@@ -43,10 +42,15 @@ const Explore = () => {
       }
     };
 
-    fetchEvents();
+    const unsubscribeEvents = fetchEvents();
     if (currentUser) {
       fetchUserTopics();
     }
+
+    // Cleanup the listener on unmount
+    return () => {
+      unsubscribeEvents();
+    };
   }, [currentUser, events]);
 
   const handleViewDetails = (eventId) => {
