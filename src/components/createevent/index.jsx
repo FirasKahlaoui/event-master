@@ -64,6 +64,10 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const selectedDate = new Date(date);
+    const currentDate = new Date();
+
     if (
       !title ||
       !shortDescription ||
@@ -76,6 +80,11 @@ const CreateEvent = () => {
       alert(
         "Please fill in all fields, select an image, and choose at least one topic."
       );
+      return;
+    }
+
+    if (selectedDate < currentDate) {
+      alert("The event date cannot be in the past.");
       return;
     }
 
@@ -97,6 +106,7 @@ const CreateEvent = () => {
       await addDoc(collection(db, "events"), newEvent);
 
       alert("Event created successfully!");
+      navigate("/my-events");
     } catch (error) {
       console.error("Error creating event:", error);
       alert("Failed to create event.");
