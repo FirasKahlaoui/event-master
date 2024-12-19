@@ -14,19 +14,22 @@ const Explore = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchEvents = () => {
-      const eventsCollection = collection(db, "events");
-      const unsubscribe = onSnapshot(eventsCollection, (snapshot) => {
-        const eventsList = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setEvents(eventsList);
-      });
+    const eventsCollection = collection(db, "events");
+    const unsubscribe = onSnapshot(eventsCollection, (snapshot) => {
+      const eventsList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setEvents(eventsList);
+    });
 
-      return unsubscribe;
+    // Cleanup the listener on unmount
+    return () => {
+      unsubscribe();
     };
+  }, []);
 
+  useEffect(() => {
     const fetchUserTopics = async () => {
       try {
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
@@ -42,15 +45,9 @@ const Explore = () => {
       }
     };
 
-    const unsubscribeEvents = fetchEvents();
     if (currentUser) {
       fetchUserTopics();
     }
-
-    // Cleanup the listener on unmount
-    return () => {
-      unsubscribeEvents();
-    };
   }, [currentUser, events]);
 
   const handleViewDetails = (eventId) => {
