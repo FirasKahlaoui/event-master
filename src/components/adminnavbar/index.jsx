@@ -4,7 +4,7 @@ import "./AdminNavbar.css";
 import { useAuth } from "../../contexts/authContext";
 
 const AdminNavbar = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentAdmin, logout } = useAuth();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -28,13 +28,13 @@ const AdminNavbar = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/home");
+    navigate("/admin-login");
   };
 
   const handleNavLinkClick = (e) => {
-    if (!currentUser) {
+    if (!currentAdmin) {
       e.preventDefault();
-      navigate("/login");
+      navigate("/admin-login");
     }
   };
 
@@ -69,24 +69,24 @@ const AdminNavbar = () => {
         </NavLink>
       </nav>
       <div className="navbar-profile">
-        {currentUser ? (
+        {currentAdmin ? (
           <div className="profile-dropdown" ref={dropdownRef}>
             <img
-              src={currentUser.photoURL || "/assets/default-avatar.png"}
+              src={currentAdmin.photoURL || "/assets/default-avatar.png"}
               alt="Admin"
               className="profile-avatar"
               onClick={handleDropdownToggle}
             />
             {dropdownVisible && (
               <div className="dropdown-content">
-                <span>Hello, {currentUser.displayName || "Admin"}!</span>
+                <span>Hello, {currentAdmin.displayName || "Admin"}!</span>
                 <Link to="/profile">Profile</Link>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             )}
           </div>
         ) : (
-          <Link to="/login" className="login-link">
+          <Link to="/admin-login" className="login-link">
             Login
           </Link>
         )}
