@@ -1,49 +1,77 @@
+/* General Styles */
 .admin-dashboard-container {
   padding: 20px;
+  background-color: #f4f4f9;
+  color: #333;
+  font-family: Arial, sans-serif;
 }
 
+/* KPI Container Styles */
 .kpi-container {
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
+/* KPI Card Styles */
 .kpi {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
-  width: 200px;
+  width: calc(50% - 10px); /* Adjust width to fit two cards in a row with gap */
+  transition: transform 0.2s;
+}
+
+.kpi:hover {
+  transform: translateY(-5px);
 }
 
 .kpi h2 {
-  margin: 0 0 10px;
-  font-size: 18px;
-  color: #333;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #555;
 }
 
 .kpi p {
   margin: 0;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  color: #444;
+  color: #000;
 }
 
+/* Chart Container Styles */
 .chart-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 40px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .chart-container h2 {
   margin-bottom: 20px;
-  font-size: 20px;
-  color: #222;
+  font-size: 22px;
+  color: #444;
 }
 
+/* Charts Row Styles */
+.charts-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* Tooltip Styles */
 .recharts-tooltip-wrapper {
   z-index: 1000;
 }

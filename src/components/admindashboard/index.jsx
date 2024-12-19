@@ -181,11 +181,11 @@ const AdminDashboard = () => {
         </div>
         <div className="chart-container">
           <h2>Event Topics Distribution</h2>
-          <PieChart width={800} height={500}>
+          <PieChart width={550} height={500}>
             <Pie
               data={topicData}
-              cx={200}
-              cy={200}
+              cx={280}
+              cy={280}
               labelLine={false}
               label={({ name, percent }) =>
                 `${name}: ${(percent * 100).toFixed(0)}%`
@@ -204,25 +204,28 @@ const AdminDashboard = () => {
             <Tooltip />
           </PieChart>
         </div>
-        <div className="chart-container">
-          <h2>Top 5 Most Joined Events</h2>
-          <BarChart width={600} height={300} data={mostJoinedEvents}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#8884d8" />
-          </BarChart>
-        </div>
-        <div className="chart-container">
-          <h2>Top 5 Most Liked Events</h2>
-          <BarChart width={600} height={300} data={mostLikedEvents}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#82ca9d" />
-          </BarChart>
+
+        <div className="charts-row">
+          <div className="chart-container">
+            <h2>Top 5 Most Joined Events</h2>
+            <BarChart width={600} height={300} data={mostJoinedEvents}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </div>
+          <div className="chart-container">
+            <h2>Top 5 Most Liked Events</h2>
+            <BarChart width={600} height={300} data={mostLikedEvents}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#82ca9d" />
+            </BarChart>
+          </div>
         </div>
       </div>
     </div>
