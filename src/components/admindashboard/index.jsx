@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import AdminNavbar from "../adminnavbar";
 import "./AdminDashboard.css";
@@ -13,21 +13,23 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      const eventsCollection = collection(db, "events");
-      const eventsSnapshot = await getDocs(eventsCollection);
-      setEvents(eventsSnapshot.docs.map((doc) => doc.data()));
-    };
+    const eventsCollection = collection(db, "events");
+    const unsubscribeEvents = onSnapshot(eventsCollection, (snapshot) => {
+      setEvents(snapshot.docs.map((doc) => doc.data()));
+      setLoading(false);
+    });
 
-    const fetchUsers = async () => {
-      const usersCollection = collection(db, "users");
-      const usersSnapshot = await getDocs(usersCollection);
-      setUsers(usersSnapshot.docs.map((doc) => doc.data()));
-    };
+    const usersCollection = collection(db, "users");
+    const unsubscribeUsers = onSnapshot(usersCollection, (snapshot) => {
+      setUsers(snapshot.docs.map((doc) => doc.data()));
+      setLoading(false);
+    });
 
-    fetchEvents();
-    fetchUsers();
-    setLoading(false);
+    // Cleanup the listeners on unmount
+    return () => {
+      unsubscribeEvents();
+      unsubscribeUsers();
+    };
   }, []);
 
   if (loading) {
