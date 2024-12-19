@@ -10,6 +10,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [currentAdmin, setCurrentAdmin] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [isEmailUser, setIsEmailUser] = useState(false);
   const [isGoogleUser, setIsGoogleUser] = useState(false);
@@ -48,6 +49,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     await signOut(auth);
     setCurrentUser(null);
+    setCurrentAdmin(null);
     setUserLoggedIn(false);
     setIsEmailUser(false);
     setIsGoogleUser(false);
@@ -59,7 +61,9 @@ export function AuthProvider({ children }) {
     isGoogleUser,
     currentUser,
     setCurrentUser,
-    logout
+    currentAdmin,
+    setCurrentAdmin,
+    logout,
   };
 
   return (

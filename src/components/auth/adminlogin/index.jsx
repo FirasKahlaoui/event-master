@@ -6,7 +6,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
-  const { setCurrentUser } = useAuth();
+  const { setCurrentAdmin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -32,7 +32,7 @@ const AdminLogin = () => {
           const adminDoc = querySnapshot.docs[0];
           const adminData = adminDoc.data();
 
-          setCurrentUser({
+          setCurrentAdmin({
             uid: adminData.uid,
             email: adminData.email,
             role: adminData.role,
