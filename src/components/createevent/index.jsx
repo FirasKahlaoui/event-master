@@ -120,6 +120,13 @@ const CreateEvent = () => {
   return (
     <div>
       <Navbar />
+      <div className="createEvent-header">
+        <h1>Create a New Event</h1>
+        <p>
+          Fill out the form below to create a new event. Make sure to provide
+          all the necessary details.
+        </p>
+      </div>
       <form className="createEvent-form" onSubmit={handleSubmit}>
         <div className="createEvent-form-left">
           <input
@@ -168,7 +175,11 @@ const CreateEvent = () => {
           </div>
           <div className="createEvent-buttons">
             <button type="submit">Create Event</button>
-            <button type="button" onClick={handleCancel}>
+            <button
+              type="button"
+              className="cancel-button"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
           </div>

@@ -1,6 +1,23 @@
+.createEvent-header {
+  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.createEvent-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #004643;
+}
+
+.createEvent-header p {
+  margin: 10px 0 0;
+  font-size: 1rem;
+  color: #0c1618;
+}
+
 .createEvent-form {
   display: flex;
-  flex-direction: column;
   gap: 20px;
   padding: 20px;
   background-color: #faf4d3;
@@ -44,6 +61,14 @@
 
 .createEvent-form button:hover {
   background-color: #0c1618;
+}
+
+.createEvent-form .cancel-button {
+  background-color: #d9534f;
+}
+
+.createEvent-form .cancel-button:hover {
+  background-color: #c9302c;
 }
 
 .createEvent-topics-container {
