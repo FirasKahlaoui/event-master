@@ -14,7 +14,8 @@ import Explore from "./components/explore";
 import Profile from "./components/profile";
 import AdminDashboard from "./components/admindashboard";
 import TwoFactorSetup from "./components/auth/TwoFactorSetup";
-import ProtectedRoute from "./components/auth/ProtectedRoute"; // Import the ProtectedRoute component
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AdminEvents from "./components/adminevents";
 
 const App = () => {
   return (
@@ -37,6 +38,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-events"
+            element={
+              <ProtectedRoute>
+                <AdminEvents />
               </ProtectedRoute>
             }
           />

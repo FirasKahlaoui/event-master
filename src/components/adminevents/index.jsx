@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import AdminNavbar from "../adminnavbar";
 import "./AdminEvents.css";
 
 const AdminEvents = () => {
@@ -11,7 +12,9 @@ const AdminEvents = () => {
     const fetchEvents = async () => {
       const eventsCollection = collection(db, "events");
       const eventsSnapshot = await getDocs(eventsCollection);
-      setEvents(eventsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setEvents(
+        eventsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
       setLoading(false);
     };
 
@@ -32,28 +35,35 @@ const AdminEvents = () => {
   }
 
   return (
-    <div className="admin-events-container">
-      <h1>Events</h1>
-      <table className="events-table">
-        <thead>
-          <tr>
-            <th>Event Name</th>
-            <th>Creator</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event) => (
-            <tr key={event.id}>
-              <td>{event.name}</td>
-              <td>{event.creator}</td>
-              <td>
-                <button onClick={() => handleDelete(event.id)}>Delete</button>
-              </td>
+    <div>
+      <AdminNavbar />
+      <div className="admin-events-container">
+        <h1>Events</h1>
+        <table className="events-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Joined Users</th>
+              <th>Topics</th>
+              <th>Likes</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {events.map((event) => (
+              <tr key={event.id}>
+                <td>{event.title}</td>
+                <td>{(event.joinedUsers || []).length}</td>
+                <td>{(event.topics || []).join(", ")}</td>
+                <td>{event.likes || 0}</td>
+                <td>
+                  <button onClick={() => handleDelete(event.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
