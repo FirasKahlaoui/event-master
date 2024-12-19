@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import AdminNavbar from "../adminnavbar";
 import "./AdminUsers.css";
@@ -9,20 +9,19 @@ const AdminUsers = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const usersCollection = collection(db, "users");
-      const usersSnapshot = await getDocs(usersCollection);
-      setUsers(usersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    const usersCollection = collection(db, "users");
+    const unsubscribe = onSnapshot(usersCollection, (snapshot) => {
+      setUsers(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       setLoading(false);
-    };
+    });
 
-    fetchUsers();
+    // Cleanup the listener on unmount
+    return () => unsubscribe();
   }, []);
 
   const handleDelete = async (userId) => {
     try {
       await deleteDoc(doc(db, "users", userId));
-      setUsers(users.filter((user) => user.id !== userId));
     } catch (error) {
       console.error("Error deleting user: ", error);
     }
