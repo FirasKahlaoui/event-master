@@ -27,7 +27,7 @@ export const doSignInWithEmailAndPassword = (email, password) => {
 
 export const doSignInWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(authInstance, provider);
+    const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
     // Check if the user document exists in Firestore
@@ -40,6 +40,8 @@ export const doSignInWithGoogle = async () => {
         joinedEvents: [],
       });
     }
+
+    return result; // Return the result so the calling function can access the userCredential
   } catch (error) {
     console.error("Error signing in with Google:", error);
     throw error;

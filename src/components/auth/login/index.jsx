@@ -95,16 +95,25 @@ const Login = () => {
       setIsSigningIn(true);
       try {
         const userCredential = await doSignInWithGoogle();
+        if (!userCredential) {
+          throw new Error("No user credential returned from Google Sign-In");
+        }
         const user = userCredential.user;
+
+        // Print the user's email
+        console.log("User email:", user.email);
 
         // Fetch user document from Firestore using email
         const usersCollection = collection(db, "users");
         const q = query(usersCollection, where("email", "==", user.email));
         const querySnapshot = await getDocs(q);
 
+        console.log("Query Snapshot:", querySnapshot);
+
         if (!querySnapshot.empty) {
           const userDoc = querySnapshot.docs[0];
           const userData = userDoc.data();
+          console.log("User Data:", userData);
           if (!userData.topics || userData.topics.length === 0) {
             navigate("/select-topics");
           } else {
@@ -115,6 +124,7 @@ const Login = () => {
           setIsSigningIn(false);
         }
       } catch (error) {
+        console.error("Error during Google Sign-In:", error);
         setErrorMessage(error.message);
         setIsSigningIn(false);
       }
