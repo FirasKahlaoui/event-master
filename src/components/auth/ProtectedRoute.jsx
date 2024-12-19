@@ -5,16 +5,16 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
 const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useAuth();
+  const { currentAdmin } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const checkAdminStatus = useCallback(async () => {
     try {
-      if (currentUser) {
+      if (currentAdmin) {
         const q = query(
           collection(db, "admin"),
-          where("email", "==", currentUser.email)
+          where("email", "==", currentAdmin.email)
         );
         const querySnapshot = await getDocs(q);
         console.log("Admin doc exists:", !querySnapshot.empty); // Debugging statement
@@ -25,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [currentUser]);
+  }, [currentAdmin]);
 
   useEffect(() => {
     checkAdminStatus();
@@ -35,10 +35,10 @@ const ProtectedRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  console.log("Current user:", currentUser); // Debugging statement
+  console.log("Current admin:", currentAdmin); // Debugging statement
   console.log("Is admin:", isAdmin); // Debugging statement
 
-  if (!currentUser) {
+  if (!currentAdmin) {
     return <Navigate to="/admin-login" replace />;
   }
 
