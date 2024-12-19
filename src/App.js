@@ -4,6 +4,7 @@ import { AuthProvider } from "./contexts/authContext";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import AdminLogin from "./components/auth/adminlogin";
+import Verify from "./components/auth/verify";
 import Home from "./components/home";
 import EventsDetails from "./components/eventsdetails";
 import SelectTopics from "./components/selecttopics";
@@ -25,6 +26,7 @@ const App = () => {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/verify" element={<Verify />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/home" element={<Home />} />
           <Route path="/event/:id" element={<EventsDetails />} />
