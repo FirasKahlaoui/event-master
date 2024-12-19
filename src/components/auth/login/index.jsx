@@ -1,21 +1,25 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
-  doSendEmailVerification,
 } from "../../../firebase/auth";
 import { useAuth } from "../../../contexts/authContext";
+import emailjs from "emailjs-com";
 import "./Login.css";
 
 const Login = () => {
   const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const generateVerificationCode = () => {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +27,33 @@ const Login = () => {
       setIsSigningIn(true);
       try {
         await doSignInWithEmailAndPassword(email, password);
-        await doSendEmailVerification();
+        const verificationCode = generateVerificationCode();
+        const templateParams = {
+          to_email: email,
+          message: `Your verification code is: ${verificationCode}`,
+        };
+        emailjs
+          .send(
+            "service_a2fgtpl",
+            "template_54gkyuq",
+            templateParams,
+            "YLIxjdVVSO6A6_061"
+          )
+          .then(
+            (response) => {
+              console.log(
+                "Email sent successfully:",
+                response.status,
+                response.text
+              );
+              navigate("/verify", { state: { email, verificationCode } });
+            },
+            (error) => {
+              console.error("Failed to send email:", error);
+              setErrorMessage("Failed to send verification email.");
+              setIsSigningIn(false);
+            }
+          );
       } catch (error) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
