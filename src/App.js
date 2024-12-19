@@ -16,6 +16,7 @@ import AdminDashboard from "./components/admindashboard";
 import TwoFactorSetup from "./components/auth/TwoFactorSetup";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AdminEvents from "./components/adminevents";
+import AdminUsers from "./components/adminusers";
 
 const App = () => {
   return (
@@ -46,6 +47,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <AdminEvents />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-users"
+            element={
+              <ProtectedRoute>
+                <AdminUsers />
               </ProtectedRoute>
             }
           />
