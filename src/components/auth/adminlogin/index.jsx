@@ -47,6 +47,9 @@ const AdminLogin = () => {
         setCurrentUser(user);
         await checkAdminStatus(user);
 
+        console.log("isAdmin:", isAdmin); // Print the value of isAdmin
+
+        // Navigate to the admin dashboard if the user is an admin
         if (isAdmin) {
           navigate("/admin-dashboard");
         }
