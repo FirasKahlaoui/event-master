@@ -5,6 +5,15 @@ import {
   doSignInWithGoogle,
 } from "../../../firebase/auth";
 import { useAuth } from "../../../contexts/authContext";
+import { db } from "../../../firebase/firebase";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import emailjs from "emailjs-com";
 import "./Login.css";
 
@@ -26,34 +35,53 @@ const Login = () => {
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
-        await doSignInWithEmailAndPassword(email, password);
-        const verificationCode = generateVerificationCode();
-        const templateParams = {
-          to_email: email,
-          message: `Your verification code is: ${verificationCode}`,
-        };
-        emailjs
-          .send(
-            "service_a2fgtpl",
-            "template_54gkyuq",
-            templateParams,
-            "YLIxjdVVSO6A6_061"
-          )
-          .then(
-            (response) => {
-              console.log(
-                "Email sent successfully:",
-                response.status,
-                response.text
+        const userCredential = await doSignInWithEmailAndPassword(
+          email,
+          password
+        );
+        const user = userCredential.user;
+
+        // Fetch user document from Firestore
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          if (!userData.topics || userData.topics.length === 0) {
+            navigate("/select-topics");
+          } else {
+            const verificationCode = generateVerificationCode();
+            const templateParams = {
+              to_email: email,
+              message: `Your verification code is: ${verificationCode}`,
+            };
+            emailjs
+              .send(
+                "service_a2fgtpl",
+                "template_54gkyuq",
+                templateParams,
+                "YLIxjdVVSO6A6_061"
+              )
+              .then(
+                (response) => {
+                  console.log(
+                    "Email sent successfully:",
+                    response.status,
+                    response.text
+                  );
+                  navigate("/verify", { state: { email, verificationCode } });
+                },
+                (error) => {
+                  console.error("Failed to send email:", error);
+                  setErrorMessage("Failed to send verification email.");
+                  setIsSigningIn(false);
+                }
               );
-              navigate("/verify", { state: { email, verificationCode } });
-            },
-            (error) => {
-              console.error("Failed to send email:", error);
-              setErrorMessage("Failed to send verification email.");
-              setIsSigningIn(false);
-            }
-          );
+          }
+        } else {
+          setErrorMessage("User document does not exist.");
+          setIsSigningIn(false);
+        }
       } catch (error) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
@@ -66,7 +94,26 @@ const Login = () => {
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
-        await doSignInWithGoogle();
+        const userCredential = await doSignInWithGoogle();
+        const user = userCredential.user;
+
+        // Fetch user document from Firestore using email
+        const usersCollection = collection(db, "users");
+        const q = query(usersCollection, where("email", "==", user.email));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const userDoc = querySnapshot.docs[0];
+          const userData = userDoc.data();
+          if (!userData.topics || userData.topics.length === 0) {
+            navigate("/select-topics");
+          } else {
+            navigate("/home");
+          }
+        } else {
+          setErrorMessage("User document does not exist.");
+          setIsSigningIn(false);
+        }
       } catch (error) {
         setErrorMessage(error.message);
         setIsSigningIn(false);

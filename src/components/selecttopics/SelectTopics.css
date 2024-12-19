@@ -1,47 +1,29 @@
-.create-event-form {
+.select-topics-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
   padding: 20px;
-  background-color: #faf4d3;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f4f4f9;
+  height: 100vh;
 }
 
-.create-event-form input,
-.create-event-form textarea {
-  padding: 10px;
-  border: 1px solid #004643;
-  border-radius: 5px;
-  font-size: 1rem;
-  color: #0c1618;
-  background-color: #f6be9a;
+.select-topics-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #004643;
 }
 
-.create-event-form input:focus,
-.create-event-form textarea:focus {
-  border-color: #d1ac00;
-  background-color: #ffffff;
+.select-topics-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.create-event-form button {
-  padding: 10px 20px;
-  background-color: #004643;
-  color: #faf4d3;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.create-event-form button:hover {
-  background-color: #0c1618;
-}
-
-.topics-container {
+.topics-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 .topic-item {
@@ -58,45 +40,16 @@
   color: #faf4d3;
 }
 
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .create-event-form {
-    padding: 15px;
-  }
-
-  .create-event-form input,
-  .create-event-form textarea {
-    font-size: 0.875rem;
-  }
-
-  .create-event-form button {
-    padding: 8px 16px;
-    font-size: 0.875rem;
-  }
-
-  .topic-item {
-    padding: 8px 16px;
-    font-size: 0.875rem;
-  }
+.submit-button {
+  padding: 10px 20px;
+  background-color: #004643;
+  color: #faf4d3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-@media (max-width: 480px) {
-  .create-event-form {
-    padding: 10px;
-  }
-
-  .create-event-form input,
-  .create-event-form textarea {
-    font-size: 0.75rem;
-  }
-
-  .create-event-form button {
-    padding: 6px 12px;
-    font-size: 0.75rem;
-  }
-
-  .topic-item {
-    padding: 6px 12px;
-    font-size: 0.75rem;
-  }
+.submit-button:hover {
+  background-color: #0c1618;
 }
