@@ -4,23 +4,42 @@
 
 .kpi-container {
   display: flex;
-  gap: 20px;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .kpi {
-  background-color: #faf4d3;
-  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   text-align: center;
+  width: 200px;
 }
 
 .kpi h2 {
-  margin-bottom: 10px;
-  color: #004643;
+  margin: 0 0 10px;
+  font-size: 18px;
 }
 
 .kpi p {
+  margin: 0;
   font-size: 24px;
-  color: #0c1618;
+  font-weight: bold;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%; /* Add width to the chart container */
+}
+
+.chart-container h2 {
+  margin-bottom: 20px;
+}
+
+.recharts-tooltip-wrapper {
+  z-index: 1000;
 }
