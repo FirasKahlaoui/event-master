@@ -160,6 +160,7 @@ const CreateEvent = () => {
           <input type="file" onChange={handleFileChange} />
         </div>
         <div className="createEvent-form-right">
+          <h2>Select Your Event Topics</h2>
           <div className="createEvent-topics-container">
             {topicsList.map((topic) => (
               <div
