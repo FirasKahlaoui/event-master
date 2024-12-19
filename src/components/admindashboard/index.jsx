@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
 import "./AdminDashboard.css";
@@ -10,16 +10,9 @@ const AdminDashboard = () => {
   const { currentUser } = useAuth();
   const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
-      if (currentUser) {
-        const adminDoc = await getDoc(doc(db, "admin", currentUser.uid));
-        setIsAdmin(adminDoc.exists());
-      }
-    };
-
     const fetchEvents = async () => {
       const eventsCollection = collection(db, "events");
       const eventsSnapshot = await getDocs(eventsCollection);
@@ -32,17 +25,17 @@ const AdminDashboard = () => {
       setUsers(usersSnapshot.docs.map((doc) => doc.data()));
     };
 
-    checkAdminStatus();
     fetchEvents();
     fetchUsers();
-  }, [currentUser]);
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (!currentUser) {
     return <Navigate to="/login" replace />;
-  }
-
-  if (!isAdmin) {
-    return <Navigate to="/home" replace />;
   }
 
   return (

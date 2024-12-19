@@ -41,10 +41,8 @@ const ProtectedRoute = ({ children }) => {
   if (!currentUser) {
     return <Navigate to="/admin-login" replace />;
   }
-  if (currentUser && isAdmin) {
-    return <Navigate to="/admin-dashboard" replace />;
-  }
-  if (currentUser && !isAdmin) {
+
+  if (!isAdmin) {
     return <Navigate to="/home" replace />;
   }
 
