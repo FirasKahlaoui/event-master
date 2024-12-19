@@ -135,7 +135,6 @@ const AdminDashboard = () => {
               ))}
             </Pie>
             <Tooltip />
-            <Legend />
           </PieChart>
         </div>
       </div>
