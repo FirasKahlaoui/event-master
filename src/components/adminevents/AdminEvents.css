@@ -1,0 +1,46 @@
+.admin-events-container {
+  padding: 20px;
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.events-table th,
+.events-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.events-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.events-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.events-table tr:hover {
+  background-color: #ddd;
+}
+
+.events-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d32f2f;
+}
