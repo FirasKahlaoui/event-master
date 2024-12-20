@@ -1,143 +1,153 @@
+/* General Button Styles */
+.edetails-button {
+  display: inline-block;
+  background-color: #d1ac00; /* Gold */
+  color: #faf4d3; /* Light cream */
+  font-weight: bold;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.edetails-button:disabled {
+  background-color: #a09e8f; /* Muted color for disabled state */
+  cursor: not-allowed;
+}
+
+.edetails-button:hover:not(:disabled) {
+  background-color: #f6be9a; /* Light coral */
+  color: #004643; /* Dark green */
+}
+
+/* Specific Button Variants */
+.edetails-join-button {
+  margin-bottom: 10px;
+}
+
+.edetails-like-button {
+  margin-bottom: 10px;
+}
+
+.edetails-share-button {
+  margin-bottom: 10px;
+}
+
+.edetails-view-my-events-button {
+  margin-bottom: 20px;
+}
+
+.edetails-add-comment-button {
+  margin-top: 10px;
+}
+
+.edetails-like-comment-button {
+  margin-right: 10px;
+}
+
+.edetails-delete-comment-button {
+  margin-right: 10px;
+}
+
+/* Input Styling */
+.edetails-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #004643; /* Dark green */
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* Comments Styling */
+.edetails-comment {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #004643; /* Dark green */
+  border-radius: 8px;
+  background-color: #faf4d3; /* Light cream */
+}
+
+.edetails-comment p {
+  margin: 0;
+  font-size: 14px;
+  color: #0c1618; /* Very dark green */
+}
+
+/* Event Details Page */
 .edetails-event-details-page {
   display: flex;
-  gap: 20px;
+  flex-direction: row;
   padding: 20px;
-  background-color: #faf4d3;
+  gap: 20px;
 }
 
 .edetails-event-details-left {
   flex: 2;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
   padding: 20px;
+  background-color: #faf4d3; /* Light cream */
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .edetails-event-details-right {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
   padding: 20px;
+  background-color: #004643; /* Dark green */
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #faf4d3; /* Light cream */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Event Image Styling */
 .edetails-event-image {
   width: 100%;
-  max-width: 600px;
   height: auto;
-  margin-bottom: 20px;
   border-radius: 10px;
+  margin-bottom: 15px;
 }
 
+/* Event Topics Styling */
 .edetails-event-topics {
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .edetails-event-topic {
   display: inline-block;
-  background-color: #004643;
-  color: #faf4d3;
+  margin: 5px;
   padding: 5px 10px;
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  background-color: #d1ac00; /* Gold */
+  color: #faf4d3; /* Light cream */
+  border-radius: 8px;
+  font-size: 14px;
 }
 
-button {
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  background-color: #d1ac00;
-  color: #faf4d3;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-button:hover {
-  background-color: #f6be9a;
-}
-
+/* Comments Section */
 .edetails-comments-section {
   margin-top: 20px;
 }
 
-.edetails-comments-section input {
-  width: calc(100% - 120px);
-  padding: 10px;
-  margin-right: 10px;
-  border: 1px solid #d1ac00;
-  border-radius: 5px;
-}
-
-.edetails-comments-section button {
-  padding: 10px 20px;
-  background-color: #004643;
-  color: #faf4d3;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.edetails-comments-section button:hover {
-  background-color: #d1ac00;
+.edetails-comments-section h3 {
+  margin-bottom: 10px;
+  color: #faf4d3; /* Light cream */
 }
 
 .edetails-comments-section ul {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
 }
 
 .edetails-comments-section li {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #d1ac00;
-  border-radius: 5px;
-  background: #fefcf6;
+  margin-bottom: 10px;
 }
 
-.edetails-comments-section li button {
-  margin-top: 10px;
-  padding: 5px 15px;
-  font-size: 14px;
-  background: #d1ac00;
-  color: #faf4d3;
-}
-
-.edetails-comments-section li button:hover {
-  background: #f6be9a;
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .edetails-event-details-page {
-    flex-direction: column;
-  }
-
-  .edetails-event-details-left,
-  .edetails-event-details-right {
-    min-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .edetails-event-details-left h2,
-  .edetails-event-details-right h3 {
-    font-size: 20px;
-  }
-
-  .edetails-event-details-left p,
-  .edetails-event-details-right button,
-  .edetails-comments-section input {
-    font-size: 14px;
-  }
-
-  .edetails-comments-section li {
-    font-size: 12px;
-  }
+/* Navbar Component Placeholder */
+.navbar {
+  background-color: #004643; /* Dark green */
+  color: #faf4d3; /* Light cream */
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
 }

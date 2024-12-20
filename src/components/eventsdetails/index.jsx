@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { useAuth } from "../../contexts/authContext";
 import Navbar from "../navbar";
 import "./EventsDetails.css";
@@ -92,6 +99,7 @@ const EventsDetails = () => {
       setIsJoining(false);
     }
   };
+
   const handleAddComment = async () => {
     if (newComment.trim() === "") return;
     const comment = {
@@ -185,7 +193,11 @@ const EventsDetails = () => {
       <div className="edetails-event-details-page">
         <div className="edetails-event-details-left">
           <h2>{event.title}</h2>
-          <img src={event.image} alt={event.title} className="edetails-event-image" />
+          <img
+            src={event.image}
+            alt={event.title}
+            className="edetails-event-image"
+          />
           <p>{event.description}</p>
           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
           <p>Location: {event.location}</p>
@@ -199,15 +211,30 @@ const EventsDetails = () => {
           <p>Joined Users: {joinedUsersCount}</p>
         </div>
         <div className="edetails-event-details-right">
-          <button onClick={handleJoinEvent} disabled={isJoining || isJoined}>
+          <button
+            className="edetails-button edetails-join-button"
+            onClick={handleJoinEvent}
+            disabled={isJoining || isJoined}
+          >
             {isJoining ? "Joining..." : isJoined ? "Joined" : "Join Event"}
           </button>
-          <button onClick={handleLikeEvent}>
+          <button
+            className="edetails-button edetails-like-button"
+            onClick={handleLikeEvent}
+          >
             {userHasLiked ? "Unlike Event" : "Like Event"} ({eventLikes})
           </button>
-          <button onClick={handleShareEvent}>Share Event</button>
+          <button
+            className="edetails-button edetails-share-button"
+            onClick={handleShareEvent}
+          >
+            Share Event
+          </button>
           {isJoined && (
-            <button onClick={() => navigate("/my-events")}>
+            <button
+              className="edetails-button edetails-view-my-events-button"
+              onClick={() => navigate("/my-events")}
+            >
               View My Events
             </button>
           )}
@@ -215,23 +242,35 @@ const EventsDetails = () => {
             <h3>Comments ({comments.length})</h3>
             <input
               type="text"
+              className="edetails-input"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Add a comment"
             />
-            <button onClick={handleAddComment}>Add Comment</button>
+            <button
+              className="edetails-button edetails-add-comment-button"
+              onClick={handleAddComment}
+            >
+              Add Comment
+            </button>
             <ul>
               {comments.map((comment) => (
-                <li key={comment.id}>
+                <li key={comment.id} className="edetails-comment">
                   <p>{comment.text}</p>
-                  <button onClick={() => handleLikeComment(comment.id)}>
+                  <button
+                    className="edetails-button edetails-like-comment-button"
+                    onClick={() => handleLikeComment(comment.id)}
+                  >
                     {comment.likedBy.includes(currentUser.uid)
                       ? "Unlike"
                       : "Like"}{" "}
                     ({comment.likes})
                   </button>
                   {comment.userId === currentUser.uid && (
-                    <button onClick={() => handleDeleteComment(comment.id)}>
+                    <button
+                      className="edetails-button edetails-delete-comment-button"
+                      onClick={() => handleDeleteComment(comment.id)}
+                    >
                       Delete
                     </button>
                   )}
