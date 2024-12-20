@@ -143,14 +143,6 @@ const HomePage = () => {
     }
     return "";
   };
-
-  const handleMouseOverDate = (date) => {
-    const event = [...joinedEvents, ...createdEvents].find(
-      (event) => new Date(event.date).toDateString() === date.toDateString()
-    );
-    setHoverEventTitle(event ? event.title : null);
-  };
-
   return (
     <div>
       <Navbar />
