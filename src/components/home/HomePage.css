@@ -64,7 +64,7 @@
 
 .right-section .event-card p {
   font-size: 1em;
-  color: #666;
+  color: #000;
 }
 
 .calendar-section {
@@ -97,5 +97,5 @@
 }
 
 .react-calendar__tile {
-  color: black; /* Make calendar text black */
+  color: black;
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar";
 import EventList from "../eventlist";
-import Map from "../Map";
 import { getEvents } from "../../firebase/events";
 import { useAuth } from "../../contexts/authContext";
 import { Link } from "react-router-dom";
@@ -206,12 +205,6 @@ const HomePage = () => {
             value={calendarDate}
             tileClassName={tileClassName}
           />
-        </div>
-      )}
-      {userLoggedIn && (
-        <div className="map-section">
-          <h2>Event Locations</h2>
-          <Map events={[...joinedEvents, ...createdEvents]} />
         </div>
       )}
     </div>

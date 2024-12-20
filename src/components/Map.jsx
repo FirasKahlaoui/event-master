@@ -14,25 +14,43 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-const Map = ({ events }) => {
+// Custom icons for created and joined events
+const createdEventIcon = new L.Icon({
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-red.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const joinedEventIcon = new L.Icon({
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-blue.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const Map = ({ createdEvents, joinedEvents }) => {
   const getCoordinates = (location) => {
     const coordinates = {
       Tunis: [36.8065, 10.1815],
       Sousse: [35.8256, 10.636],
       Carthage: [36.8588, 10.3308],
-      Bizerte: [37.2746, 9.8739],
-      Hammamet: [36.4, 10.6167],
-      Monastir: [35.7643, 10.8113],
-      Djerba: [33.8076, 10.844],
-      Zaghouan: [36.4076, 10.1453],
-      Nabeul: [36.451, 10.7359],
+      // Add more locations as needed
     };
-    return coordinates[location] || [0, 0];
+    return coordinates[location] || [0, 0]; // Return [0, 0] if location is not found
   };
 
   return (
     <MapContainer
-      center={[34.0, 9.0]}
+      center={[36.8065, 10.1815]}
       zoom={7}
       style={{ height: "400px", width: "100%" }}
     >
@@ -40,14 +58,26 @@ const Map = ({ events }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {events.map((event) => {
+      {createdEvents.map((event) => {
         const coordinates = getCoordinates(event.location);
         return (
-          <Marker key={event.id} position={coordinates}>
+          <Marker key={event.id} position={coordinates} icon={createdEventIcon}>
             <Popup>
-              <strong>{event.title}</strong>
-              <br />
-              {event.location}
+              <h3>{event.title}</h3>
+              <p>{event.shortDescription}</p>
+              <p>{new Date(event.date).toLocaleDateString()}</p>
+            </Popup>
+          </Marker>
+        );
+      })}
+      {joinedEvents.map((event) => {
+        const coordinates = getCoordinates(event.location);
+        return (
+          <Marker key={event.id} position={coordinates} icon={joinedEventIcon}>
+            <Popup>
+              <h3>{event.title}</h3>
+              <p>{event.shortDescription}</p>
+              <p>{new Date(event.date).toLocaleDateString()}</p>
             </Popup>
           </Marker>
         );
