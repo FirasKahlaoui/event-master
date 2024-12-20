@@ -6,7 +6,7 @@ import Navbar from "../navbar";
 import "./Profile.css";
 
 const Profile = () => {
-  const { currentUser, updatePassword, deleteUser } = useAuth();
+  const { currentUser, updatePassword, deleteUser, logout } = useAuth();
   const [userData, setUserData] = useState(null);
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
@@ -70,8 +70,12 @@ const Profile = () => {
   const handleDeleteAccount = async () => {
     setLoading(true);
     try {
+      // Delete user document from Firestore
       await deleteDoc(doc(db, "users", currentUser.uid));
+      // Delete user authentication
       await deleteUser();
+      // Log out the user
+      await logout();
     } catch (error) {
       console.error("Error deleting account:", error);
     }
@@ -88,14 +92,22 @@ const Profile = () => {
       <div className="profile-container">
         <h1>Profile</h1>
         <div className="profile-details">
-          <p><strong>Name:</strong> {userData.name}</p>
-          <p><strong>Email:</strong> {currentUser.email}</p>
-          <p><strong>Phone:</strong> {userData.phone || "Not provided"}</p>
-          <p><strong>Joined Events:</strong> {userData.joinedEvents.length}</p>
+          <p>
+            <strong>Name:</strong> {userData.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {currentUser.email}
+          </p>
+          <p>
+            <strong>Phone:</strong> {userData.phone || "Not provided"}
+          </p>
+          <p>
+            <strong>Joined Events:</strong> {userData.joinedEvents.length}
+          </p>
         </div>
         <div className="profile-actions">
           <h2>Update Profile</h2>
-          <div className="form-group">
+          <div className="profile-form-group">
             <label>New Name</label>
             <input
               type="text"
@@ -106,7 +118,7 @@ const Profile = () => {
               Update Name
             </button>
           </div>
-          <div className="form-group">
+          <div className="profile-form-group">
             <label>New Phone Number</label>
             <input
               type="text"
@@ -117,7 +129,7 @@ const Profile = () => {
               Update Phone
             </button>
           </div>
-          <div className="form-group">
+          <div className="profile-form-group">
             <label>New Password</label>
             <input
               type="password"
@@ -128,8 +140,12 @@ const Profile = () => {
               Update Password
             </button>
           </div>
-          <div className="form-group">
-            <button onClick={handleDeleteAccount} disabled={loading} className="delete-button">
+          <div className="profile-form-group">
+            <button
+              onClick={handleDeleteAccount}
+              disabled={loading}
+              className="profile-delete-button"
+            >
               Delete Account
             </button>
           </div>
