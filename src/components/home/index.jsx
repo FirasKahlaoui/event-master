@@ -25,6 +25,7 @@ const HomePage = () => {
   const [joinedEvents, setJoinedEvents] = useState([]);
   const [createdEvents, setCreatedEvents] = useState([]);
   const [calendarDate, setCalendarDate] = useState(new Date());
+  const [hoverEventTitle, setHoverEventTitle] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -140,7 +141,14 @@ const HomePage = () => {
         return "react-calendar__tile--highlight-created";
       }
     }
-    return null;
+    return "";
+  };
+
+  const handleMouseOverDate = (date) => {
+    const event = [...joinedEvents, ...createdEvents].find(
+      (event) => new Date(event.date).toDateString() === date.toDateString()
+    );
+    setHoverEventTitle(event ? event.title : null);
   };
 
   return (
@@ -204,7 +212,22 @@ const HomePage = () => {
             onChange={setCalendarDate}
             value={calendarDate}
             tileClassName={tileClassName}
+            tileContent={({ date, view }) => {
+              if (view === "month") {
+                const event = [...joinedEvents, ...createdEvents].find(
+                  (event) =>
+                    new Date(event.date).toDateString() === date.toDateString()
+                );
+                return event ? (
+                  <div className="event-title">{event.title}</div>
+                ) : null;
+              }
+            }}
+            onMouseLeave={() => setHoverEventTitle(null)}
           />
+          {hoverEventTitle && (
+            <div className="hover-event-title">{hoverEventTitle}</div>
+          )}
         </div>
       )}
     </div>
