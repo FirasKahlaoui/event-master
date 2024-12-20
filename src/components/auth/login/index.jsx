@@ -51,11 +51,6 @@ const Login = () => {
               )
               .then(
                 (response) => {
-                  console.log(
-                    "Email sent successfully:",
-                    response.status,
-                    response.text
-                  );
                   navigate("/verify", { state: { email, verificationCode } });
                 },
                 (error) => {
@@ -113,11 +108,6 @@ const Login = () => {
               )
               .then(
                 (response) => {
-                  console.log(
-                    "Email sent successfully:",
-                    response.status,
-                    response.text
-                  );
                   navigate("/verify", { state: { email, verificationCode } });
                 },
                 (error) => {
@@ -149,20 +139,14 @@ const Login = () => {
         }
         const user = userCredential.user;
 
-        // Print the user's email
-        console.log("User email:", user.email);
-
         // Fetch user document from Firestore using email
         const usersCollection = collection(db, "users");
         const q = query(usersCollection, where("email", "==", user.email));
         const querySnapshot = await getDocs(q);
 
-        console.log("Query Snapshot:", querySnapshot);
-
         if (!querySnapshot.empty) {
           const userDoc = querySnapshot.docs[0];
           const userData = userDoc.data();
-          console.log("User Data:", userData);
 
           // If topics are empty or not set, navigate to the select topics page
           if (!userData.topics || userData.topics.length === 0) {
