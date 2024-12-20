@@ -1,24 +1,26 @@
 .myevents-container {
-  padding: 20px;
+  padding: 25px;
   background-color: #faf4d3;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .myevents-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .create-event-button {
-  padding: 8px 16px;
+  padding: 10px 18px;
   background-color: #d1ac00;
   color: #faf4d3;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -28,58 +30,78 @@
 
 .myevents-content {
   display: flex;
-  gap: 20px;
+  gap: 25px;
+  flex-wrap: wrap;
 }
 
 .created-events,
 .joined-events {
   flex: 1;
   background: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 25px;
+  border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
 }
 
+.joined-events h2,
+.created-events h2 {
+  margin-bottom: 15px;
+}
 .event-item {
   display: flex;
   align-items: flex-start;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 20px;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ececec;
 }
 
 .event-image {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .event-details {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .button-group {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .manage-button,
-.delete-button,
-.cancel-button {
-  padding: 6px 10px;
-  font-size: 12px;
+.delete-button {
+  padding: 8px 14px;
+  font-size: 14px;
   background-color: #004643;
   color: #faf4d3;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-  flex: 0 0 auto; /* Prevent buttons from stretching */
   text-align: center;
+  width: auto;
+}
+
+.cancel-button {
+  padding: 8px 14px;
+  font-size: 14px;
+  background-color: #f6be9a;
+  color: #004643;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  width: auto;
 }
 
 .manage-button {
@@ -91,7 +113,7 @@
 }
 
 .cancel-button {
-  background-color: #d9534f;
+  background-color: #e69867;
 }
 
 .manage-button:hover,
@@ -111,20 +133,30 @@
   }
 
   .button-group {
-    gap: 6px;
+    gap: 8px;
   }
 }
 
 @media (max-width: 480px) {
+  .myevents-container {
+    padding: 15px;
+  }
+
   .event-image {
     width: 100%;
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   .manage-button,
   .delete-button,
   .cancel-button {
-    width: 100%; /* Full-width buttons on small screens */
+    width: 100%;
+    padding: 10px 18px;
+  }
+
+  .myevents-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
