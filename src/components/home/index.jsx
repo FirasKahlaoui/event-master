@@ -36,7 +36,7 @@ const HomePage = () => {
           const recommended = events.filter((event) =>
             event.topics.some((topic) => userTopics.includes(topic))
           );
-          setRecommendedEvents(recommended);
+          setRecommendedEvents(recommended.slice(0, 4)); // Show only 4 recommended events
         }
       } catch (error) {
         console.error("Error fetching user topics:", error);
