@@ -27,7 +27,6 @@
     "react-calendar": "^5.1.0",
     "react-dom": "^18.3.1",
     "react-google-button": "^0.8.0",
-    "react-leaflet": "^5.0.0",
     "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
     "recharts": "^2.15.0",
