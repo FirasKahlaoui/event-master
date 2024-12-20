@@ -91,6 +91,7 @@ const AdminDashboard = () => {
   const [topicData, setTopicData] = useState([]);
   const [mostJoinedEvents, setMostJoinedEvents] = useState([]);
   const [mostLikedEvents, setMostLikedEvents] = useState([]);
+  const [userTopicData, setUserTopicData] = useState([]);
 
   useEffect(() => {
     const eventsCollection = collection(db, "events");
@@ -145,8 +146,30 @@ const AdminDashboard = () => {
 
     const usersCollection = collection(db, "users");
     const unsubscribeUsers = onSnapshot(usersCollection, (snapshot) => {
-      setUsers(snapshot.docs.map((doc) => doc.data()));
+      const usersList = snapshot.docs.map((doc) => doc.data());
+      setUsers(usersList);
       setLoading(false);
+
+      // Calculate user topic data for the pie chart
+      const userTopicCount = {};
+      usersList.forEach((user) => {
+        if (user.topics) {
+          user.topics.forEach((topic) => {
+            if (userTopicCount[topic]) {
+              userTopicCount[topic]++;
+            } else {
+              userTopicCount[topic] = 1;
+            }
+          });
+        }
+      });
+
+      const userTopicDataArray = Object.keys(userTopicCount).map((topic) => ({
+        name: topic,
+        value: userTopicCount[topic],
+      }));
+
+      setUserTopicData(userTopicDataArray);
     });
 
     // Cleanup the listeners on unmount
@@ -226,6 +249,32 @@ const AdminDashboard = () => {
               <Bar dataKey="value" fill="#82ca9d" />
             </BarChart>
           </div>
+        </div>
+
+        <div className="chart-container">
+          <h2>User Topics Distribution</h2>
+          <PieChart width={550} height={500}>
+            <Pie
+              data={userTopicData}
+              cx={280}
+              cy={280}
+              labelLine={false}
+              label={({ name, percent }) =>
+                `${name}: ${(percent * 100).toFixed(0)}%`
+              }
+              outerRadius={150}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {userTopicData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
         </div>
       </div>
     </div>
