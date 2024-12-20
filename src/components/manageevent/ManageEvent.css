@@ -1,16 +1,16 @@
 .manage-event-container {
-  padding: 20px;
-  background-color: #faf4d3;
   max-width: 600px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .manage-event-container h1 {
   text-align: center;
-  margin-bottom: 20px;
   color: #004643;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -20,35 +20,46 @@
 .form-group label {
   display: block;
   margin-bottom: 5px;
-  color: #0c1618;
+  color: #004643;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #d1ac00;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  background: #ffffff;
 }
 
-.form-group textarea {
-  resize: vertical;
-  height: 100px;
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-.update-button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #004643;
-  color: #faf4d3;
+.update-button,
+.cancel-button {
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  font-weight: bold;
+}
+
+.update-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
 }
 
 .update-button:hover {
-  background-color: #d1ac00;
+  background-color: #45a049;
+}
+
+.cancel-button:hover {
+  background-color: #e53935;
 }

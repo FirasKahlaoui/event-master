@@ -59,6 +59,10 @@ const ManageEvent = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate("/my-events");
+  };
+
   if (!event) {
     return <p>Loading event details...</p>;
   }
@@ -128,9 +132,14 @@ const ManageEvent = () => {
               required
             />
           </div>
-          <button type="submit" className="update-button">
-            Update Event
-          </button>
+          <div className="form-buttons">
+            <button type="submit" className="update-button">
+              Update Event
+            </button>
+            <button type="button" className="cancel-button" onClick={handleCancel}>
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>
