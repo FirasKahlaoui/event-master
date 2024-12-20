@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
@@ -18,13 +18,62 @@ import emailjs from "emailjs-com";
 import "./Login.css";
 
 const Login = () => {
-  const { userLoggedIn } = useAuth();
+  const { userLoggedIn, currentUser } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (userLoggedIn && currentUser) {
+      const checkUserVerification = async () => {
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          if (!userData.topics || userData.topics.length === 0) {
+            navigate("/select-topics");
+          } else {
+            const verificationCode = generateVerificationCode();
+            const templateParams = {
+              to_email: email, // Or userData.email if necessary
+              message: `Your verification code is: ${verificationCode}`,
+            };
+            emailjs
+              .send(
+                "service_a2fgtpl",
+                "template_54gkyuq",
+                templateParams,
+                "YLIxjdVVSO6A6_061"
+              )
+              .then(
+                (response) => {
+                  console.log(
+                    "Email sent successfully:",
+                    response.status,
+                    response.text
+                  );
+                  navigate("/verify", { state: { email, verificationCode } });
+                },
+                (error) => {
+                  console.error("Failed to send email:", error);
+                  setErrorMessage("Failed to send verification email.");
+                  setIsSigningIn(false);
+                }
+              );
+          }
+        } else {
+          setErrorMessage("User document does not exist.");
+          setIsSigningIn(false);
+        }
+      };
+
+      checkUserVerification();
+    }
+  }, [userLoggedIn, currentUser, navigate, email]);
 
   const generateVerificationCode = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -114,6 +163,8 @@ const Login = () => {
           const userDoc = querySnapshot.docs[0];
           const userData = userDoc.data();
           console.log("User Data:", userData);
+
+          // If topics are empty or not set, navigate to the select topics page
           if (!userData.topics || userData.topics.length === 0) {
             navigate("/select-topics");
           } else {
@@ -133,8 +184,6 @@ const Login = () => {
 
   return (
     <div>
-      {userLoggedIn && <Navigate to="/home" replace />}
-
       <main className="login-container">
         <div className="login-box">
           <div className="login-header">
