@@ -27,7 +27,6 @@ const Map = ({ events }) => {
       Zaghouan: [36.4076, 10.1453],
       Nabeul: [36.451, 10.7359],
     };
-
     return coordinates[location] || [0, 0];
   };
 

@@ -71,6 +71,10 @@
   margin: 20px 0;
 }
 
+.map-section {
+  margin: 20px 0;
+}
+
 .react-calendar {
   width: 100%;
   max-width: 500px;
@@ -94,7 +98,4 @@
 
 .react-calendar__tile {
   color: black; /* Make calendar text black */
-}
-.recommended-events h2 {
-  padding-bottom: 10px; /* Add padding to the bottom of the title */
 }
