@@ -73,7 +73,6 @@ const HomePage = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("Created Events:", createdEventsList);
         setCreatedEvents(createdEventsList);
       }
     );
@@ -98,7 +97,6 @@ const HomePage = () => {
                 id: doc.id,
                 ...doc.data(),
               }));
-              console.log("Joined Events:", joinedEventsList);
               setJoinedEvents(joinedEventsList);
             }
           );
