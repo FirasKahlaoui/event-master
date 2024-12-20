@@ -74,6 +74,12 @@
   width: 100%;
 }
 
+.calendar-section h2 {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  color: #004643;
+}
+
 .react-calendar {
   width: 100%;
   max-width: 100%;
@@ -159,6 +165,12 @@
 
 .legend-item .label {
   font-size: 1.1em;
+  color: #004643;
+}
+
+.recommended-events h2 {
+  padding: 10px 0;
+  margin-bottom: 20px;
   color: #004643;
 }
 
