@@ -6,9 +6,16 @@ import { getEvents } from "../../firebase/events";
 import { useAuth } from "../../contexts/authContext";
 import { Link } from "react-router-dom";
 import { db } from "../../firebase/firebase";
-import { collection, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -58,14 +65,16 @@ const HomePage = () => {
       collection(db, "events"),
       where("creatorId", "==", currentUser.uid)
     );
-    const unsubscribeCreatedEvents = onSnapshot(createdEventsQuery, (snapshot) => {
-      const createdEventsList = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      console.log("Created Events:", createdEventsList);
-      setCreatedEvents(createdEventsList);
-    });
+    const unsubscribeCreatedEvents = onSnapshot(
+      createdEventsQuery,
+      (snapshot) => {
+        const createdEventsList = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCreatedEvents(createdEventsList);
+      }
+    );
 
     return unsubscribeCreatedEvents;
   }, [currentUser]);
@@ -80,14 +89,16 @@ const HomePage = () => {
             collection(db, "events"),
             where("__name__", "in", joinedEventIds)
           );
-          const unsubscribeJoinedEvents = onSnapshot(joinedEventsQuery, (snapshot) => {
-            const joinedEventsList = snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
-            console.log("Joined Events:", joinedEventsList);
-            setJoinedEvents(joinedEventsList);
-          });
+          const unsubscribeJoinedEvents = onSnapshot(
+            joinedEventsQuery,
+            (snapshot) => {
+              const joinedEventsList = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+              setJoinedEvents(joinedEventsList);
+            }
+          );
 
           return unsubscribeJoinedEvents;
         }
@@ -112,15 +123,19 @@ const HomePage = () => {
   const displayedEvents = events.slice(0, 2);
 
   const tileClassName = ({ date, view }) => {
-    if (view === 'month') {
-      const joinedEventDates = joinedEvents.map(event => new Date(event.date).toDateString());
-      const createdEventDates = createdEvents.map(event => new Date(event.date).toDateString());
+    if (view === "month") {
+      const joinedEventDates = joinedEvents.map((event) =>
+        new Date(event.date).toDateString()
+      );
+      const createdEventDates = createdEvents.map((event) =>
+        new Date(event.date).toDateString()
+      );
 
       if (joinedEventDates.includes(date.toDateString())) {
-        return 'react-calendar__tile--highlight-joined';
+        return "react-calendar__tile--highlight-joined";
       }
       if (createdEventDates.includes(date.toDateString())) {
-        return 'react-calendar__tile--highlight-created';
+        return "react-calendar__tile--highlight-created";
       }
     }
     return null;
