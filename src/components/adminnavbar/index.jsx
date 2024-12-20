@@ -80,7 +80,6 @@ const AdminNavbar = () => {
             {dropdownVisible && (
               <div className="dropdown-content">
                 <span>Hello, {currentAdmin.displayName || "Admin"}!</span>
-                <Link to="/profile">Profile</Link>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             )}
