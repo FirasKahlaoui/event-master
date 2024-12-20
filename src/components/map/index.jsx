@@ -22,7 +22,12 @@ const Map = ({ events }) => {
       Carthage: [36.8588, 10.3308],
       Bizerte: [37.2746, 9.8739],
       Hammamet: [36.4, 10.6167],
+      Monastir: [35.7643, 10.8113],
+      Djerba: [33.8076, 10.844],
+      Zaghouan: [36.4076, 10.1453],
+      Nabeul: [36.451, 10.7359],
     };
+
     return coordinates[location] || [0, 0];
   };
 
