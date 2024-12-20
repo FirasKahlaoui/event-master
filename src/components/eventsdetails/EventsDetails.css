@@ -24,14 +24,17 @@
 /* Specific Button Variants */
 .edetails-join-button {
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .edetails-like-button {
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .edetails-share-button {
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .edetails-view-my-events-button {
@@ -40,6 +43,7 @@
 
 .edetails-add-comment-button {
   margin-top: 10px;
+  padding-bottom: 10px;
 }
 
 .edetails-like-comment-button {
@@ -144,8 +148,8 @@
 
 /* Navbar Component Placeholder */
 .navbar {
-  background-color: #004643; /* Dark green */
-  color: #faf4d3; /* Light cream */
+  background-color: #fff;
+  color: #faf4d3; 
   padding: 15px;
   font-size: 18px;
   font-weight: bold;
