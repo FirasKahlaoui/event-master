@@ -1,121 +1,75 @@
-/* Basic Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Navbar Container */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #0c1618; /* Dark blue background */
-  color: #faf4d3; /* Light cream text */
-  font-family: Arial, sans-serif;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Navbar Brand (Logo) */
-.navbar-brand .brand-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #faf4d3;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.navbar-brand .brand-logo:hover {
-  color: #d1ac00; /* Gold on hover */
-}
-
-.navbar-links {
-  display: flex;
-  gap: 20px;
-}
-
-.navbar-links a {
-  color: #faf4d3;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 8px;
-  transition: color 0.3s ease;
-}
-
-.navbar-links a:hover,
-.navbar-links .active-link {
-  color: #d1ac00; /* Gold on hover and active */
-}
-
-.navbar-profile {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.profile-dropdown {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.profile-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
+/* Profile Avatar Hover Effect */
 .profile-avatar:hover {
   transform: scale(1.05);
+  z-index: 2;
 }
 
+/* Dropdown Content */
 .dropdown-content {
   position: absolute;
   top: 60px;
   right: 0;
   background-color: #ffffff;
   color: #0c1618;
-  width: 150px;
-  border-radius: 5px;
+  width: 180px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   z-index: 10;
+  opacity: 1;
+  visibility: visible;
 }
 
-.dropdown-content span {
-  font-size: 0.9rem;
-  color: #6b7280; /* Gray text */
+/* Hover Effect for Dropdown Links and Buttons */
+.dropdown-content a:hover,
+.dropdown-content button:hover {
+  color: #faf4d3;
+  background-color: #d1ac00; /* Gold background on hover */
+  z-index: 11; /* Ensure the text is on top */
 }
 
+/* Ensure the text is not hidden when the box turns yellow */
 .dropdown-content a,
 .dropdown-content button {
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #0c1618;
   border: none;
   background: none;
   cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.dropdown-content a:hover,
-.dropdown-content button:hover {
-  color: #d1ac00; /* Gold on hover */
-}
-
-.dropdown-content button {
-  padding: 8px 0;
+  padding: 10px;
   text-align: left;
-  font-size: 0.9rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 5px;
+  z-index: 10;
 }
 
+/* Adjusted Profile and Logout Button Styles */
+.dropdown-content .profile-button,
+.dropdown-content .logout-button {
+  padding: 10px 15px;
+  background-color: transparent;
+  color: #0c1618;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  z-index: 10;
+}
+
+.dropdown-content .profile-button:hover,
+.dropdown-content .logout-button:hover {
+  background-color: #d1ac00;
+  color: #faf4d3;
+  z-index: 11;
+}
+
+/* Adjusted Login Link */
 .login-link {
   background-color: transparent;
   border: 1px solid #faf4d3;
@@ -131,5 +85,5 @@
 
 .login-link:hover {
   color: #faf4d3;
-  background-color: #d1ac00; /* Gold on hover */
+  background-color: #d1ac00;
 }
