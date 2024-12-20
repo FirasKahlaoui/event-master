@@ -5,6 +5,8 @@ import { addDoc, collection } from "firebase/firestore";
 import { uploadImage } from "../utils/cloudinaryHelper";
 import Navbar from "../navbar";
 import { useAuth } from "../../contexts/authContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./CreateEvent.css";
 
 const topicsList = [
@@ -77,14 +79,14 @@ const CreateEvent = () => {
       !imageFile ||
       selectedTopics.length === 0
     ) {
-      alert(
+      toast.error(
         "Please fill in all fields, select an image, and choose at least one topic."
       );
       return;
     }
 
     if (selectedDate < currentDate) {
-      alert("The event date cannot be in the past.");
+      toast.error("The event date cannot be in the past.");
       return;
     }
 
@@ -105,11 +107,11 @@ const CreateEvent = () => {
       };
       await addDoc(collection(db, "events"), newEvent);
 
-      alert("Event created successfully!");
+      toast.success("Event created successfully!");
       navigate("/my-events");
     } catch (error) {
       console.error("Error creating event:", error);
-      alert("Failed to create event.");
+      toast.error("Failed to create event.");
     }
   };
 
@@ -120,6 +122,7 @@ const CreateEvent = () => {
   return (
     <div>
       <Navbar />
+      <ToastContainer />
       <div className="createEvent-header">
         <h1>Create a New Event</h1>
         <p>

@@ -29,6 +29,7 @@
     "react-google-button": "^0.8.0",
     "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^11.0.2",
     "recharts": "^2.15.0",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
