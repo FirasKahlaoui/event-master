@@ -1,57 +1,97 @@
+/* Admin Login Container */
 .admin-login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #f5f5f5;
+  padding: 20px; /* Add some padding to avoid content touching the edges */
 }
 
 .admin-login-box {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 350px; /* Set a max-width for better control */
+  text-align: center;
 }
 
 .admin-login-header {
-  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #004643; /* Dark green for the header */
   margin-bottom: 20px;
 }
 
 .admin-login-form .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .admin-login-form label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #004643; /* Dark green for the labels */
 }
 
 .admin-login-form input {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
+  font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.admin-login-form input:focus {
+  border-color: #004643;
+  outline: none;
 }
 
 .error-message {
   color: red;
-  margin-bottom: 10px;
-  display: block;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
 }
 
 .submit-button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .submit-button.disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+/* Footer Styling */
+.admin-login-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  color: #6b7280; /* Light gray for footer text */
+}
+
+.admin-login-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.admin-login-footer a:hover {
+  text-decoration: underline;
 }

@@ -104,6 +104,16 @@ const AdminLogin = () => {
           </form>
         </div>
       </main>
+      <footer className="admin-login-footer">
+        Made with love by{" "}
+        <a
+          href="https://github.com/FirasKahlaoui"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Firas Kahlaoui
+        </a>
+      </footer>
     </div>
   );
 };
