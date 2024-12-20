@@ -38,7 +38,7 @@
 }
 
 .update-button,
-.cancel-button {
+.manage-cancel-button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -51,7 +51,7 @@
   color: white;
 }
 
-.cancel-button {
+.manage-cancel-button {
   background-color: #f44336;
   color: white;
 }
@@ -60,6 +60,6 @@
   background-color: #45a049;
 }
 
-.cancel-button:hover {
+.manage-cancel-button:hover {
   background-color: #e53935;
 }

@@ -136,7 +136,7 @@ const ManageEvent = () => {
             <button type="submit" className="update-button">
               Update Event
             </button>
-            <button type="button" className="cancel-button" onClick={handleCancel}>
+            <button type="button" className="manage-cancel-button" onClick={handleCancel}>
               Cancel
             </button>
           </div>
