@@ -27,7 +27,7 @@
     "react-calendar": "^5.1.0",
     "react-dom": "^18.3.1",
     "react-google-button": "^0.8.0",
-    "react-router-dom": "^6.27.0",
+    "react-router-dom": "^6.30.3",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.2",
     "recharts": "^2.15.0",
