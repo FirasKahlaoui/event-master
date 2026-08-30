@@ -1,3 +1,5 @@
+
+
 # Bundles
 
 Bundles in a project typically refer to groups of related files or modules that are packaged together. In this project, the bundles can be identified as follows:
@@ -43,9 +45,10 @@ Represents an event in the system.
 
 ## Database
 
-The database used in this project is Firestore, a NoSQL database provided by Firebase. The configuration and initialization can be found in:
+The project uses Firestore, a NoSQL database provided by Firebase, and Firebase Data Connect with a PostgreSQL Cloud SQL database. The configuration and initialization can be found in:
 
 - `src/firebase/firebase.js`
+- `dataconnect/dataconnect.yaml`
 
 ## Forms
 
